@@ -1,4 +1,6 @@
-package dizajn.campingbumerang;
+package design;
+
+
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -18,9 +20,8 @@ public class CampingBumerangApp extends Application {
 
         Parent parentPane = loader.load();
         Scene scene = new Scene(parentPane);
-
         stage.setScene(scene);
-        stage.setTitle("CampingBumerang");
+        stage.setTitle("Camping Bumerang");
         stage.show();
     }
 

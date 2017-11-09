@@ -1,4 +1,6 @@
-package dizajn.campingbumerang;
+package design;
+
+
 
 import java.net.URL;
 import java.util.ResourceBundle;
