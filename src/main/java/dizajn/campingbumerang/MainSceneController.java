@@ -3,6 +3,8 @@ package dizajn.campingbumerang;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -12,6 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.Pane;
 
 public class MainSceneController {
+
     @FXML
     private ResourceBundle resources;
 
@@ -60,6 +63,5 @@ public class MainSceneController {
         assert potvrdeniePrihlásenia != null : "fx:id=\"potvrdeniePrihlásenia\" was not injected: check your FXML file 'MainScene.fxml'.";
         assert menoLabel != null : "fx:id=\"menoLabel\" was not injected: check your FXML file 'MainScene.fxml'.";
         assert hesloLabel != null : "fx:id=\"hesloLabel\" was not injected: check your FXML file 'MainScene.fxml'.";
-
     }
 }
