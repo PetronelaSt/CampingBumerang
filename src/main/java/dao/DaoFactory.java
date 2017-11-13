@@ -1,4 +1,4 @@
-package campingbumerang;
+package dao;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
 import org.springframework.jdbc.core.JdbcTemplate;

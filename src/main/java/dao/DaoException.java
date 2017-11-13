@@ -1,4 +1,4 @@
-package campingbumerang;
+package dao;
 
 public class DaoException extends RuntimeException {
 

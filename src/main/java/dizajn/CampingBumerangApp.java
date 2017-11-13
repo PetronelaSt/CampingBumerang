@@ -1,4 +1,4 @@
-package dizajn.campingbumerang;
+package dizajn;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
