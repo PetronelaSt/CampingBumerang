@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="543.0" prefWidth="523.0" style="-fx-background-color: #f0f5f5;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ListView fx:id="zoznamObjednavokListView" layoutX="28.0" layoutY="154.0" prefHeight="361.0" prefWidth="468.0" AnchorPane.bottomAnchor="28.0" AnchorPane.leftAnchor="28.0" AnchorPane.rightAnchor="27.0" AnchorPane.topAnchor="154.0" />
+      <Button fx:id="hladajObjednavkyButton" layoutX="329.0" layoutY="63.0" mnemonicParsing="false" text="Hľadaj" AnchorPane.leftAnchor="329.0" AnchorPane.topAnchor="63.0" />
+      <Button fx:id="odstranOjednavkuButton" layoutX="329.0" layoutY="111.0" mnemonicParsing="false" text="Odstráň vybratú objednávku" AnchorPane.leftAnchor="328.0" AnchorPane.topAnchor="111.0" />
+      <Button fx:id="upravObjednavkuButton" layoutX="150.0" layoutY="111.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="167.0" text="Uprav vybratú objednávku" AnchorPane.topAnchor="111.0" />
+      <Button fx:id="pridajObjednavkuButton" layoutX="28.0" layoutY="111.0" mnemonicParsing="false" text="Pridaj objednávku" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="111.0" />
+      <Label fx:id="datumObjednavkyLabel" layoutX="28.0" layoutY="35.0" text="Dátum objednávky" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="35.0" />
+      <Label fx:id="idPozemkuLabel" layoutX="28.0" layoutY="67.0" text="Id pozemku" AnchorPane.leftAnchor="28.0" AnchorPane.topAnchor="67.0" />
+      <DatePicker fx:id="datumObjednavkyDatePicker" layoutX="139.0" layoutY="31.0" prefHeight="25.0" prefWidth="167.0" AnchorPane.leftAnchor="139.0" AnchorPane.topAnchor="31.0" />
+      <TextField fx:id="idPozemkuTextField" layoutX="139.0" layoutY="63.0" prefHeight="25.0" prefWidth="167.0" AnchorPane.leftAnchor="139.0" AnchorPane.topAnchor="63.0" />
+   </children>
+</AnchorPane>

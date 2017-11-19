@@ -1,12 +1,18 @@
 package camping.design;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 public class ZamestnanecSceneController {
 
@@ -26,10 +32,10 @@ public class ZamestnanecSceneController {
     private Button pridajPlatbuButton;
 
     @FXML
-    private Button pridajObjednavkuButton;
+    private Button prepniUzivatelaButton;
 
     @FXML
-    private Button prepniUzivatelaButton;
+    private Button spravujObjednavkyButton;
 
     @FXML
     private Button id1Button;
@@ -252,6 +258,51 @@ public class ZamestnanecSceneController {
 
     @FXML
     void initialize() {
-        
+        spravujObjednavkyButton.setOnAction(eh -> {
+            ObjednavkaEditSceneController controller = new ObjednavkaEditSceneController();
+            showObjednavkaEditWindow(controller);
+        });
+        prepniUzivatelaButton.setOnAction(eh -> {
+            MainSceneController controller = new MainSceneController();
+            showMainWindow(controller);
+        });
+    }
+
+    private void showObjednavkaEditWindow(ObjednavkaEditSceneController controller) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("ObjednavkaEditScene.fxml"));
+            loader.setController(controller);
+
+            Parent parentPane = loader.load();
+            Scene scene = new Scene(parentPane);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Správa objednávok");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException iOException) {
+            iOException.printStackTrace();
+        }
+    }
+
+    private void showMainWindow(MainSceneController controller) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("MainScene.fxml"));
+            loader.setController(controller);
+
+            Parent parentPane = loader.load();
+            Scene scene = new Scene(parentPane);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Camping Bumerang: prihlásenie");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException iOException) {
+            iOException.printStackTrace();
+        }
     }
 }
