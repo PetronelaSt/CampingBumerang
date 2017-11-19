@@ -13,5 +13,5 @@ public interface PouzivatelDao {
 
     public boolean deletePouzivatela(Pouzivatel pouzivatel);
 
-    public void findById(Long id);
+    public List<Pouzivatel> findById(Long id);
 }

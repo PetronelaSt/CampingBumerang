@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
+import javax.swing.JOptionPane;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,7 +20,14 @@ public class MySqlObjednavkaDao implements ObjednavkaDao {
     
     @Override
     public void createObjednavku(Objednavka objednavka) {
-        
+         String objednavka_create = "INSERT INTO objednavky(pozicia, meno, heslo) VALUE(?, ?, ?);";
+        try {
+            jdbcTemplate.update(pouzivatel_create, pouzivatel.getPozicia(), pouzivatel.getMeno(), pouzivatel.getHeslo());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Pouzivatela" + pouzivatel.getId() + "sa nepodarilo vlozit");
+        }
+        JOptionPane.showMessageDialog(null, "Pouzivatelia sa uspesne ulozili do databazy");
+
     }
     
     @Override
