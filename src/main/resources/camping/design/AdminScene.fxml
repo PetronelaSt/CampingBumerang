@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<VBox prefHeight="526.0" prefWidth="801.0" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1">
+  <children>
+    <MenuBar VBox.vgrow="NEVER">
+      <menus>
+        <Menu mnemonicParsing="false" text="File">
+          <items>
+            <MenuItem mnemonicParsing="false" text="New" />
+            <MenuItem mnemonicParsing="false" text="Open…" />
+            <Menu mnemonicParsing="false" text="Open Recent" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Close" />
+            <MenuItem mnemonicParsing="false" text="Save" />
+            <MenuItem mnemonicParsing="false" text="Save As…" />
+            <MenuItem mnemonicParsing="false" text="Revert" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Quit" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Edit">
+          <items>
+            <MenuItem mnemonicParsing="false" text="Undo" />
+            <MenuItem mnemonicParsing="false" text="Redo" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Cut" />
+            <MenuItem mnemonicParsing="false" text="Copy" />
+            <MenuItem mnemonicParsing="false" text="Paste" />
+            <MenuItem mnemonicParsing="false" text="Delete" />
+            <SeparatorMenuItem mnemonicParsing="false" />
+            <MenuItem mnemonicParsing="false" text="Select All" />
+            <MenuItem mnemonicParsing="false" text="Unselect All" />
+          </items>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+          <items>
+            <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+          </items>
+        </Menu>
+      </menus>
+    </MenuBar>
+    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" style="-fx-background-color: #e0ebeb;" VBox.vgrow="ALWAYS">
+      <items>
+        <AnchorPane prefWidth="146.0" SplitPane.resizableWithParent="false">
+          <children>
+            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Admin" textAlignment="CENTER" wrapText="false">
+              <font>
+                <Font size="18.0" fx:id="x1" />
+              </font>
+              <textFill>
+                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+              </textFill>
+            </Label>
+                  <Button fx:id="pridajPlatbuButton" layoutX="21.0" layoutY="254.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Pridaj platbu">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="zrusPlatbuButton" layoutX="21.0" layoutY="301.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Zruš platbu">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="pridajObjednavkuButton" layoutX="21.0" layoutY="349.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Pridaj objednávku">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="zrusObjednavkuButton" layoutX="21.0" layoutY="396.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Zruš objednávku">
+                     <font>
+                        <Font size="11.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="prepniUzivatelaButton" layoutX="21.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Prepni užívateľa" />
+          </children>
+        </AnchorPane>
+        <ScrollPane prefHeight="-1.0" prefWidth="-1.0" SplitPane.resizableWithParent="false">
+          <content>
+            <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" style="-fx-background-color: #f0f5f5;">
+              <children>
+                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Pozemky" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                        <Button fx:id="id1Button" layoutX="19.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="1" />
+                        <Button fx:id="id8Button" layoutX="19.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="8" />
+                        <Button fx:id="id7Button" layoutX="321.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="7" />
+                        <Button fx:id="id6Button" layoutX="271.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="6" />
+                        <Button fx:id="id5Button" layoutX="220.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="5" />
+                        <Button fx:id="id4Button" layoutX="172.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="4" />
+                        <Button fx:id="id3Button" layoutX="122.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="3" />
+                        <Button fx:id="id2Button" layoutX="70.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="2" />
+                        <Button fx:id="id19Button" layoutX="220.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="19" />
+                        <Button fx:id="id18Button" layoutX="172.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="18" />
+                        <Button fx:id="id17Button" layoutX="122.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="17" />
+                        <Button fx:id="id16Button" layoutX="70.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="16" />
+                        <Button fx:id="id15Button" layoutX="19.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="15" />
+                        <Button fx:id="id14Button" layoutX="321.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="14" />
+                        <Button fx:id="id13Button" layoutX="271.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="13" />
+                        <Button fx:id="id12Button" layoutX="220.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="12" />
+                        <Button fx:id="id11Button" layoutX="172.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="11" />
+                        <Button fx:id="id10Button" layoutX="122.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="10" />
+                        <Button fx:id="id9Button" layoutX="70.0" layoutY="91.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="9" />
+                        <Button fx:id="id32Button" layoutX="172.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="32" />
+                        <Button fx:id="id31Button" layoutX="122.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="31" />
+                        <Button fx:id="id30Button" layoutX="70.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="30" />
+                        <Button fx:id="id28Button" layoutX="321.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="28" />
+                        <Button fx:id="id27Button" layoutX="271.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="27" />
+                        <Button fx:id="id26Button" layoutX="220.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="26" />
+                        <Button fx:id="id25Button" layoutX="172.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="25" />
+                        <Button fx:id="id24Button" layoutX="122.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="24" />
+                        <Button fx:id="id23Button" layoutX="70.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="23" />
+                        <Button fx:id="id62Button" layoutX="271.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="62" />
+                        <Button fx:id="id55Button" layoutX="271.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="55" />
+                        <Button fx:id="id48Button" layoutX="271.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="48" />
+                        <Button fx:id="id41Button" layoutX="271.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="41" />
+                        <Button fx:id="id36Button" layoutX="19.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="36" />
+                        <Button fx:id="id29Button" layoutX="19.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="29" />
+                        <Button fx:id="id22Button" layoutX="19.0" layoutY="164.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="22" />
+                        <Button fx:id="id21Button" layoutX="321.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="21" />
+                        <Button fx:id="id20Button" layoutX="271.0" layoutY="129.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="20" />
+                        <Button fx:id="id40Button" layoutX="220.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="40" />
+                        <Button fx:id="id39Button" layoutX="172.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="39" />
+                        <Button fx:id="id64Button" layoutX="19.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="64" />
+                        <Button fx:id="id57Button" layoutX="19.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="57" />
+                        <Button fx:id="id50Button" layoutX="19.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="50" />
+                        <Button fx:id="id43Button" layoutX="19.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="43" />
+                        <Button fx:id="id38Button" layoutX="122.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="38" />
+                        <Button fx:id="id35Button" layoutX="321.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="35" />
+                        <Button fx:id="id34Button" layoutX="271.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="34" />
+                        <Button fx:id="id63Button" layoutX="321.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="63" />
+                        <Button fx:id="id56Button" layoutX="321.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="56" />
+                        <Button fx:id="id49Button" layoutX="321.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="49" />
+                        <Button fx:id="id42Button" layoutX="321.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="42" />
+                        <Button fx:id="id37Button" layoutX="70.0" layoutY="238.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="37" />
+                        <Button fx:id="id33Button" layoutX="220.0" layoutY="201.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="33" />
+                        <Button fx:id="id60Button" layoutX="172.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="60" />
+                        <Button fx:id="id53Button" layoutX="172.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="53" />
+                        <Button fx:id="id52Button" layoutX="122.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="52" />
+                        <Button fx:id="id67Button" layoutX="172.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="67" />
+                        <Button fx:id="id59Button" layoutX="122.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="59" />
+                        <Button fx:id="id66Button" layoutX="122.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="66" />
+                        <Button fx:id="id65Button" layoutX="70.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="65" />
+                        <Button fx:id="id58Button" layoutX="70.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="58" />
+                        <Button fx:id="id51Button" layoutX="70.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="51" />
+                        <Button fx:id="id44Button" layoutX="70.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="44" />
+                        <Button fx:id="id46Button" layoutX="172.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="46" />
+                        <Button fx:id="id45Button" layoutX="122.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="45" />
+                        <Button fx:id="id54Button" layoutX="220.0" layoutY="309.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="54" />
+                        <Button fx:id="id68Button" layoutX="220.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="68" />
+                        <Button fx:id="id61Button" layoutX="220.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="61" />
+                        <Button fx:id="id70Button" layoutX="321.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="70" />
+                        <Button fx:id="id69Button" layoutX="271.0" layoutY="382.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="69" />
+                        <Button fx:id="id47Button" layoutX="220.0" layoutY="273.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="40.0" text="47" />
+              </children>
+            </AnchorPane>
+          </content>
+        </ScrollPane>
+        <AnchorPane>
+          <children>
+            <Label alignment="CENTER" font="$x1" layoutX="9.0" layoutY="8.0" style="&#10;" text="Údaje o pozemku" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <ListView fx:id="udajeOPozemkuListView" layoutX="9.0" layoutY="41.0" prefHeight="427.0" prefWidth="176.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0" />
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
+    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+      <children>
+        <Label maxHeight="1.7976931348623157E308" maxWidth="-1.0" text="Left status" HBox.hgrow="ALWAYS">
+          <font>
+            <Font size="11.0" fx:id="x3" />
+          </font>
+          <textFill>
+            <Color blue="0.625" green="0.625" red="0.625" fx:id="x4" />
+          </textFill>
+        </Label>
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Label font="$x3" maxWidth="-1.0" text="Right status" textFill="$x4" HBox.hgrow="NEVER" />
+      </children>
+      <padding>
+        <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
+      </padding>
+    </HBox>
+  </children>
+</VBox>
