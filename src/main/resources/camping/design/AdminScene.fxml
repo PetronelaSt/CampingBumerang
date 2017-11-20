@@ -70,12 +70,7 @@
                 <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
               </textFill>
             </Label>
-                  <Button fx:id="pridajPlatbuButton" layoutX="21.0" layoutY="239.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Pridaj platbu">
-                     <font>
-                        <Font size="11.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="zrusPlatbuButton" layoutX="21.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Zruš platbu">
+                  <Button fx:id="spravujFinancieButton" layoutX="21.0" layoutY="286.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Spravuj financie">
                      <font>
                         <Font size="11.0" />
                      </font>

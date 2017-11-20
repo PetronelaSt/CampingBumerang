@@ -20,5 +20,15 @@ public enum DaoFactory {
         return jdbcTemplate;
     }
 
-    // tu pojdu triedyDao pre Camping
+    public ObjednavkaDao getObjednavkaDao() {
+        return new MySqlObjednavkaDao(getJDBCTemplate());
+    }
+
+    public PouzivatelDao getPouzivatelDao() {
+        return new MySqlPouzivatelDao(getJDBCTemplate());
+    }
+
+    public PozemokDao getPozemokDao() {
+        return new MySqlPozemokDao(getJDBCTemplate());
+    }
 }
