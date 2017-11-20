@@ -70,17 +70,17 @@
                         <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
                      </textFill>
                   </Label>
-                  <Button fx:id="pridajPlatbuButton" layoutX="21.0" layoutY="356.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Pridaj platbu">
+                  <Button fx:id="pridajPlatbuButton" layoutX="21.0" layoutY="341.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Pridaj platbu">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </Button>
-                  <Button fx:id="pridajObjednavkuButton" layoutX="21.0" layoutY="397.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Pridaj objednávku">
+                  <Button fx:id="prepniUzivatelaButton" layoutX="21.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Prepni užívateľa" />
+                  <Button fx:id="spravujObjednavkyButton" layoutX="21.0" layoutY="380.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="118.0" text="Spravuj objednávky">
                      <font>
                         <Font size="11.0" />
                      </font>
                   </Button>
-                  <Button fx:id="prepniUzivatelaButton" layoutX="21.0" layoutY="55.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="106.0" text="Prepni užívateľa" />
                </children>
             </AnchorPane>
             <ScrollPane prefHeight="-1.0" prefWidth="-1.0" SplitPane.resizableWithParent="false">

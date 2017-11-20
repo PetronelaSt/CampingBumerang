@@ -15,7 +15,7 @@ public class CampingBumerangApp extends Application {
         try {
             MainSceneController controller = new MainSceneController();
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("MainScene.fxml"));
+                    getClass().getResource("AdminScene.fxml"));
             loader.setController(controller);
 
             Parent parentPane = loader.load();
