@@ -14,4 +14,9 @@ public interface PouzivatelDao {
     public boolean deletePouzivatela(Pouzivatel pouzivatel);
 
     public List<Pouzivatel> findById(Long id);
+
+    public List<Pouzivatel> findByPozicia(String pozicia);
+
+    public List<Pouzivatel> findByMeno(String meno);
+
 }

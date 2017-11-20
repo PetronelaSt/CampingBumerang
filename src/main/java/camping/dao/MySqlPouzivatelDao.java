@@ -18,14 +18,10 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
 
     @Override
     public void createPouzivatela(Pouzivatel pouzivatel) {
-        String pouzivatel_create = "INSERT INTO pouzivatel(pozicia, meno, heslo) VALUE(?, ?, ?);";
-        try {
+        if (pouzivatel.getId() == null) {
+            String pouzivatel_create = "INSERT INTO pouzivatel(pozicia, meno, heslo) VALUE(?, ?, ?)";
             jdbcTemplate.update(pouzivatel_create, pouzivatel.getPozicia(), pouzivatel.getMeno(), pouzivatel.getHeslo());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Pouzivatela" + pouzivatel.getId() + "sa nepodarilo vlozit");
         }
-        JOptionPane.showMessageDialog(null, "Pouzivatel sa uspesne ulozil do databazy");
-
     }
 
     @Override
@@ -37,7 +33,11 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
     @Override
     public void updatePouzivatela(Pouzivatel pouzivatel) {
         String pouzivatel_update = "UPDATE pouzivatel SET pozicia = ?, meno = ?, heslo = ? WHERE id = ?";
-        jdbcTemplate.update(pouzivatel_update, pouzivatel.getPozicia(), pouzivatel.getMeno(), pouzivatel.getHeslo(), pouzivatel.getId());
+        if (pouzivatel.getId() == null) {
+            createPouzivatela(pouzivatel);
+        } else {
+            jdbcTemplate.update(pouzivatel_update, pouzivatel.getPozicia(), pouzivatel.getMeno(), pouzivatel.getHeslo(), pouzivatel.getId());
+        }
 
     }
 
@@ -55,15 +55,31 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
         return jdbcTemplate.query(pouzivatel_findById, new PouzivatelRowMapper());
     }
 
+    @Override
+    public List<Pouzivatel> findByPozicia(String pozicia) {
+        String pouzivatel_findByPozicia = "SELECT * FROM pouzivatel "
+                + "WHERE pozicia = " + pozicia;
+        return jdbcTemplate.query(pouzivatel_findByPozicia, new PouzivatelRowMapper());
+    }
+
+    @Override
+    public List<Pouzivatel> findByMeno(String meno) {
+        String pouzivatel_findByMeno = "SELECT * FROM pouzivatel "
+                + "WHERE meno = " + meno;
+        return jdbcTemplate.query(pouzivatel_findByMeno, new PouzivatelRowMapper());
+    }
+
     private class PouzivatelRowMapper implements RowMapper<Pouzivatel> {
 
         @Override
         public Pouzivatel mapRow(ResultSet rs, int i) throws SQLException {
             Pouzivatel p = new Pouzivatel();
             p.setId(rs.getLong(1));
-            p.setPozicia(rs.getString(2));
-            p.setMeno(rs.getString(3));
-            p.setHeslo(rs.getString(4));
+            p.setMeno(rs.getString(2));
+            p.setPozicia(rs.getString(3));
+            p.setPocet_odrobenych_hodin(rs.getInt(4));
+            p.setVyplata(rs.getInt(5));
+            p.setHeslo(rs.getString(6));
             return p;
         }
 

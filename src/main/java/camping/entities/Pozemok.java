@@ -5,24 +5,25 @@ import java.util.List;
 
 public class Pozemok {
 
-    private long id;
-    private long cisloPozemku;
+    private Long id;
+    private Long cisloPozemku;
     private String kategoria;
+    private int cena;
     private boolean obsadenost;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getCisloPozemku() {
+    public Long getCisloPozemku() {
         return cisloPozemku;
     }
 
-    public void setCisloPozemku(long cisloPozemku) {
+    public void setCisloPozemku(Long cisloPozemku) {
         this.cisloPozemku = cisloPozemku;
     }
 
@@ -32,6 +33,14 @@ public class Pozemok {
 
     public void setKategoria(String kategoria) {
         this.kategoria = kategoria;
+    }
+
+    public int getCena() {
+        return cena;
+    }
+
+    public void setCena(int cena) {
+        this.cena = cena;
     }
 
     public boolean isObsadenost() {
@@ -44,7 +53,7 @@ public class Pozemok {
 
     @Override
     public String toString() {
-        return "id:" + id + ". Cislo Pozemku:" + cisloPozemku +". Kategoria:" + kategoria + ". Obsadenost:" + obsadenost;
+        return "Pozemok - id:" + id + ". Cislo Pozemku:" + cisloPozemku + ". Kategoria:" + kategoria + ". Cena:" + cena + ". Obsadenost:" + obsadenost;
     }
 
 }

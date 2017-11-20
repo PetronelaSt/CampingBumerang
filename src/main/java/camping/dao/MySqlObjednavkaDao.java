@@ -21,19 +21,14 @@ public class MySqlObjednavkaDao implements ObjednavkaDao {
 
     @Override
     public void createObjednavku(Objednavka objednavka) {
-        String objednavka_create = "INSERT INTO objednavky(pozemky_id, pouzivatel_id, datum_objednavky, datum_prichodu, datum_odchodu, pocet_dni, platba) VALUE(?, ?, ?, ?, ?, ?, ?)";
-        try {
+        if (objednavka.getId() == null) {
+            String objednavka_create = "INSERT INTO objednavky(pozemky_id, pouzivatel_id, datum_objednavky, datum_prichodu, datum_odchodu, pocet_dni, platba) VALUE(?, ?, ?, ?, ?, ?, ?)";
             if (objednavka.isPlatba()) {
                 jdbcTemplate.update(objednavka_create, objednavka.getPozemokId(), objednavka.getPouzivatelId(), objednavka.getDatumObjednavky(), objednavka.getDatumPrichodu(), objednavka.getDatumOdchodu(), objednavka.getPocetDni(), 1);
             } else {
                 jdbcTemplate.update(objednavka_create, objednavka.getPozemokId(), objednavka.getPouzivatelId(), objednavka.getDatumObjednavky(), objednavka.getDatumPrichodu(), objednavka.getDatumOdchodu(), objednavka.getPocetDni(), 0);
             }
-
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Objednavka" + objednavka.getId() + "sa nepodarilo vlozit");
         }
-        JOptionPane.showMessageDialog(null, "Objednavka sa uspesne ulozila do databazy");
-
     }
 
     @Override
@@ -44,11 +39,15 @@ public class MySqlObjednavkaDao implements ObjednavkaDao {
 
     @Override
     public void updateObjednavku(Objednavka objednavka) {
-        String objednavka_update = "UPDATE pouzivatel SET pozemok_id = ?, pouzivatel_id = ?, datum_objednavky = ?, datum_prichodu = ?, datum_odchodu = ?, pocet_dni = ?, platba = ? WHERE id = ?";
-        if (objednavka.isPlatba()) {
-            jdbcTemplate.update(objednavka_update, objednavka.getPozemokId(), objednavka.getPouzivatelId(), objednavka.getDatumObjednavky(), objednavka.getDatumPrichodu(), objednavka.getDatumOdchodu(), objednavka.getPocetDni(), 1);
+        if (objednavka.getId() == null) {
+            createObjednavku(objednavka);
         } else {
-            jdbcTemplate.update(objednavka_update, objednavka.getPozemokId(), objednavka.getPouzivatelId(), objednavka.getDatumObjednavky(), objednavka.getDatumPrichodu(), objednavka.getDatumOdchodu(), objednavka.getPocetDni(), 0);
+            String objednavka_update = "UPDATE pouzivatel SET pozemok_id = ?, pouzivatel_id = ?, datum_objednavky = ?, datum_prichodu = ?, datum_odchodu = ?, pocet_dni = ?, platba = ? WHERE id = ?";
+            if (objednavka.isPlatba()) {
+                jdbcTemplate.update(objednavka_update, objednavka.getPozemokId(), objednavka.getPouzivatelId(), objednavka.getDatumObjednavky(), objednavka.getDatumPrichodu(), objednavka.getDatumOdchodu(), objednavka.getPocetDni(), 1);
+            } else {
+                jdbcTemplate.update(objednavka_update, objednavka.getPozemokId(), objednavka.getPouzivatelId(), objednavka.getDatumObjednavky(), objednavka.getDatumPrichodu(), objednavka.getDatumOdchodu(), objednavka.getPocetDni(), 0);
+            }
         }
     }
 
@@ -65,7 +64,61 @@ public class MySqlObjednavkaDao implements ObjednavkaDao {
         String objednavka_findById = "SELECT * FROM objednavky "
                 + "WHERE id = " + id;
         return jdbcTemplate.query(objednavka_findById, new ObjednavkaRowMapper());
+    }
 
+    @Override
+    public List<Objednavka> findByPozemokId(Long pozemok_id) {
+        String objednavka_findByPozemokId = "SELECT * FROM objednavky "
+                + "WHERE pozemok_id = " + pozemok_id;
+        return jdbcTemplate.query(objednavka_findByPozemokId, new ObjednavkaRowMapper());
+    }
+
+    @Override
+    public List<Objednavka> findByPouzivatelId(Long pouzivatel_id) {
+        String objednavka_findByPouzivatelId = "SELECT * FROM objednavky "
+                + "WHERE pouzivatel_id = " + pouzivatel_id;
+        return jdbcTemplate.query(objednavka_findByPouzivatelId, new ObjednavkaRowMapper());
+    }
+
+    @Override
+    public List<Objednavka> findByDatumObjednavky(LocalDate datumObjednavky) {
+        String objednavka_findByDatumObjednavky = "SELECT * FROM objednavky "
+                + "WHERE datum_objednavky = " + datumObjednavky;
+        return jdbcTemplate.query(objednavka_findByDatumObjednavky, new ObjednavkaRowMapper());
+    }
+
+    @Override
+    public List<Objednavka> findByDatumPrichodu(LocalDate datumPrichodu) {
+        String objednavka_findByDatumPrichodu = "SELECT * FROM objednavky "
+                + "WHERE datum_prichodu = " + datumPrichodu;
+        return jdbcTemplate.query(objednavka_findByDatumPrichodu, new ObjednavkaRowMapper());
+    }
+
+    @Override
+    public List<Objednavka> findByDatumOdchodu(LocalDate datumOdchodu) {
+        String objednavka_findByDatumOdchodu = "SELECT * FROM objednavky "
+                + "WHERE datum_odchodu = " + datumOdchodu;
+        return jdbcTemplate.query(objednavka_findByDatumOdchodu, new ObjednavkaRowMapper());
+    }
+
+    @Override
+    public List<Objednavka> findByPocetDni(int pocetDni) {
+        String objednavka_findByDatumPocetDni = "SELECT * FROM objednavky "
+                + "WHERE pocet_dni = " + pocetDni;
+        return jdbcTemplate.query(objednavka_findByDatumPocetDni, new ObjednavkaRowMapper());
+    }
+
+    @Override
+    public List<Objednavka> findByPlatba(boolean platba) {
+        String objednavka_findByPlatba = "";
+        if (platba == true) {
+            objednavka_findByPlatba = "SELECT * FROM objednavky "
+                    + "WHERE platba = " + 1;
+        } else {
+            objednavka_findByPlatba = "SELECT * FROM objednavky "
+                    + "WHERE platba = " + 0;
+        }
+        return jdbcTemplate.query(objednavka_findByPlatba, new ObjednavkaRowMapper());
     }
 
     private class ObjednavkaRowMapper implements RowMapper<Objednavka> {

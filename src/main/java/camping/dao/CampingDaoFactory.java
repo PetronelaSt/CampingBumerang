@@ -17,7 +17,7 @@ public enum CampingDaoFactory {
             dataSource.setUser("CampingUser");
             dataSource.setPassword("campingbumerang");
             dataSource.setUrl("jdbc:mysql://localhost/campingsql?serverTimezone=Europe/Bratislava");
-            
+
             jdbcTemplate = new JdbcTemplate(dataSource);
         }
         return jdbcTemplate;
@@ -25,6 +25,7 @@ public enum CampingDaoFactory {
 
     public PozemokDao getMySqlPozemokDao() {
         return new MySqlPozemokDao(getJDBCTemplate());
+        
     }
 
     public ObjednavkaDao getMySqlObjednavkaDao() {
