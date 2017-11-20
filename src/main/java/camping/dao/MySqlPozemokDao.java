@@ -42,22 +42,7 @@ public class MySqlPozemokDao implements PozemokDao {
     @Override
     public List<Pozemok> getAll() {
         String pozemok_getAll = "SELECT * FROM pozemky";
-        return jdbcTemplate.query(pozemok_getAll, new RowMapper<Pozemok>() {
-            @Override
-            public Pozemok mapRow(ResultSet rs, int i) throws SQLException {
-                Pozemok p = new Pozemok();
-                p.setId(rs.getLong(1));
-                p.setCisloPozemku(rs.getLong(2));
-                p.setKategoria(rs.getString(3));
-
-                if (rs.getInt(4) == 1) {
-                    p.setObsadenost(true);
-                } else {
-                    p.setObsadenost(false);
-                }
-                return p;
-            }
-        });
+        return jdbcTemplate.query(pozemok_getAll, new PozemokRowMapper());
 
     }
 
@@ -88,25 +73,21 @@ public class MySqlPozemokDao implements PozemokDao {
     public List<Pozemok> findById(long id) {
         String pozemok_findById = "SELECT * FROM pozemky "
                 + "WHERE id = " + id;
-        return jdbcTemplate.query(pozemok_findById, (ResultSet rs, int i) -> {
-            Pozemok p = new Pozemok();
-            p.setId(rs.getLong(1));
-            p.setCisloPozemku(rs.getLong(2));
-            p.setKategoria(rs.getString(3));
-            if (rs.getInt(4) == 1) {
-                p.setObsadenost(true);
-            } else {
-                p.setObsadenost(false);
-            }
-            return p;
-        });
+        return jdbcTemplate.query(pozemok_findById, new PozemokRowMapper());
     }
 
     @Override
     public List<Pozemok> findByCisloPozemku(long cisloPozemku) {
         String pozemok_findById = "SELECT * FROM pozemky "
                 + "WHERE cislo_pozemku = " + cisloPozemku;
-        return jdbcTemplate.query(pozemok_findById, (ResultSet rs, int i) -> {
+        return jdbcTemplate.query(pozemok_findById, new PozemokRowMapper());
+
+    }
+
+    private class PozemokRowMapper implements RowMapper<Pozemok> {
+
+        @Override
+        public Pozemok mapRow(ResultSet rs, int i) throws SQLException {
             Pozemok p = new Pozemok();
             p.setId(rs.getLong(1));
             p.setCisloPozemku(rs.getLong(2));
@@ -117,16 +98,16 @@ public class MySqlPozemokDao implements PozemokDao {
                 p.setObsadenost(false);
             }
             return p;
-        });
+        }
+
     }
 
     public static void main(String[] args) {
         MySqlPozemokDao ms = (MySqlPozemokDao) CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
-        Pozemok pozemok = new Pozemok();
-        pozemok.setCisloPozemku(7);
-        pozemok.setKategoria("IV");
-        pozemok.setObsadenost(true);
-
-        ms.createPozemok(pozemok);
+        List<Pozemok> p = ms.getAll();
+        for (Pozemok pozemok : p) {
+            System.out.println(pozemok);
+        }
     }
+
 }

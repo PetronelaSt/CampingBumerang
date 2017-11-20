@@ -10,7 +10,7 @@ public interface ObjednavkaDao {
     
     public void updateObjednavku(Objednavka objednavka);
 
-    public void deleteObjednavku(Objednavka objednavka);
+    public boolean deleteObjednavku(Objednavka objednavka);
 
-    public void findById(Long id);
+    public List<Objednavka> findById(Long id);
 }

@@ -1,5 +1,6 @@
 package camping.entities;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Objednavka {
@@ -7,9 +8,9 @@ public class Objednavka {
     private long id;
     private long pozemokId;
     private long pouzivatelId;
-    private LocalDateTime datumObjednavky;
-    private LocalDateTime datumPrichodu;
-    private LocalDateTime datumOdchodu;
+    private LocalDate datumObjednavky;
+    private LocalDate datumPrichodu;
+    private LocalDate datumOdchodu;
     private long pocetDni;
     private boolean platba;
 
@@ -45,27 +46,27 @@ public class Objednavka {
         this.id = id;
     }
 
-    public LocalDateTime getDatumObjednavky() {
+    public LocalDate getDatumObjednavky() {
         return datumObjednavky;
     }
 
-    public void setDatumObjednavky(LocalDateTime datumObjednavky) {
+    public void setDatumObjednavky(LocalDate datumObjednavky) {
         this.datumObjednavky = datumObjednavky;
     }
 
-    public LocalDateTime getDatumPrichodu() {
+    public LocalDate getDatumPrichodu() {
         return datumPrichodu;
     }
 
-    public void setDatumPrichodu(LocalDateTime datumPrichodu) {
+    public void setDatumPrichodu(LocalDate datumPrichodu) {
         this.datumPrichodu = datumPrichodu;
     }
 
-    public LocalDateTime getDatumOdchodu() {
+    public LocalDate getDatumOdchodu() {
         return datumOdchodu;
     }
 
-    public void setDatumOdchodu(LocalDateTime datumOdchodu) {
+    public void setDatumOdchodu(LocalDate datumOdchodu) {
         this.datumOdchodu = datumOdchodu;
     }
 

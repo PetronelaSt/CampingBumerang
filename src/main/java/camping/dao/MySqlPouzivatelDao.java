@@ -24,24 +24,14 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Pouzivatela" + pouzivatel.getId() + "sa nepodarilo vlozit");
         }
-        JOptionPane.showMessageDialog(null, "Pouzivatelia sa uspesne ulozili do databazy");
+        JOptionPane.showMessageDialog(null, "Pouzivatel sa uspesne ulozil do databazy");
 
     }
 
     @Override
     public List<Pouzivatel> getAll() {
         String pouzivatel_getAll = "SELECT * FROM pouzivatel";
-        return jdbcTemplate.query(pouzivatel_getAll, new RowMapper<Pouzivatel>() {
-            @Override
-            public Pouzivatel mapRow(ResultSet rs, int i) throws SQLException {
-                Pouzivatel p = new Pouzivatel();
-                p.setId(rs.getLong(1));
-                p.setPozicia(rs.getString(2));
-                p.setMeno(rs.getString(3));
-                p.setHeslo(rs.getString(4));
-                return p;
-            }
-        });
+        return jdbcTemplate.query(pouzivatel_getAll, new PouzivatelRowMapper());
     }
 
     @Override
@@ -62,14 +52,21 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
     public List<Pouzivatel> findById(Long id) {
         String pouzivatel_findById = "SELECT * FROM pouzivatel "
                 + "WHERE id = " + id;
-        return jdbcTemplate.query(pouzivatel_findById, (ResultSet rs, int i) -> {
+        return jdbcTemplate.query(pouzivatel_findById, new PouzivatelRowMapper());
+    }
+
+    private class PouzivatelRowMapper implements RowMapper<Pouzivatel> {
+
+        @Override
+        public Pouzivatel mapRow(ResultSet rs, int i) throws SQLException {
             Pouzivatel p = new Pouzivatel();
             p.setId(rs.getLong(1));
             p.setPozicia(rs.getString(2));
             p.setMeno(rs.getString(3));
             p.setHeslo(rs.getString(4));
             return p;
-        });
+        }
+
     }
 
     public static void main(String[] args) {
