@@ -1,9 +1,6 @@
 package camping.dao;
 
 import com.mysql.cj.jdbc.MysqlDataSource;
-import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 public enum CampingDaoFactory {
@@ -23,9 +20,13 @@ public enum CampingDaoFactory {
         return jdbcTemplate;
     }
 
+    public KategoriaDao getMySqlKategoriaDao() {
+        return new MySqlKategoriaDao(getJDBCTemplate());
+    }
+
     public PozemokDao getMySqlPozemokDao() {
         return new MySqlPozemokDao(getJDBCTemplate());
-        
+
     }
 
     public ObjednavkaDao getMySqlObjednavkaDao() {
@@ -34,6 +35,10 @@ public enum CampingDaoFactory {
 
     public PouzivatelDao getMySqlPouzivatelDao() {
         return new MySqlPouzivatelDao(getJDBCTemplate());
+    }
+
+    public HesloDao getMySqlHesloDao() {
+        return new MySqlHesloDao(getJDBCTemplate());
     }
 
 }

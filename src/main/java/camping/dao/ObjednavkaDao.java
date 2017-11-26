@@ -12,7 +12,7 @@ public interface ObjednavkaDao {
 
     public void updateObjednavku(Objednavka objednavka);
 
-    public boolean deleteObjednavku(Objednavka objednavka);
+    public boolean deleteObjednavku(Long id);
 
     public List<Objednavka> findById(Long id);
 
@@ -25,11 +25,9 @@ public interface ObjednavkaDao {
     public List<Objednavka> findByDatumPrichodu(LocalDate datumPrichodu);
 
     public List<Objednavka> findByDatumOdchodu(LocalDate datumOdchodu);
-    
-     public List<Objednavka> findByPocetDni(int pocetDni);
-     
-      public List<Objednavka> findByPlatba(boolean platba);
-   
-   
+
+    public List<Objednavka> findByPocetDni(int pocetDni);
+
+    public List<Objednavka> findByPlatba(boolean platba);
 
 }

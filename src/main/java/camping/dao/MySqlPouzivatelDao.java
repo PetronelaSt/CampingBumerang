@@ -4,7 +4,6 @@ import camping.entities.Pouzivatel;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
-import javax.swing.JOptionPane;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -19,8 +18,8 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
     @Override
     public void createPouzivatela(Pouzivatel pouzivatel) {
         if (pouzivatel.getId() == null) {
-            String pouzivatel_create = "INSERT INTO pouzivatel(pozicia, meno, heslo) VALUE(?, ?, ?)";
-            jdbcTemplate.update(pouzivatel_create, pouzivatel.getPozicia(), pouzivatel.getMeno(), pouzivatel.getHeslo());
+            String pouzivatel_create = "INSERT INTO pouzivatel(meno, pozicia, pocet_odrobenych_hodin, vyplata) VALUES(?, ?, ?, ?)";
+            jdbcTemplate.update(pouzivatel_create, pouzivatel.getMeno(), pouzivatel.getPozicia(), pouzivatel.getPocet_odrobenych_hodin(), pouzivatel.getVyplata());
         }
     }
 
@@ -32,18 +31,18 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
 
     @Override
     public void updatePouzivatela(Pouzivatel pouzivatel) {
-        String pouzivatel_update = "UPDATE pouzivatel SET pozicia = ?, meno = ?, heslo = ? WHERE id = ?";
+        String pouzivatel_update = "UPDATE pouzivatel SET meno = ?, pozicia = ?, pocet_odrobenych_hodin = ?, vyplata = ? WHERE id = ?";
         if (pouzivatel.getId() == null) {
             createPouzivatela(pouzivatel);
         } else {
-            jdbcTemplate.update(pouzivatel_update, pouzivatel.getPozicia(), pouzivatel.getMeno(), pouzivatel.getHeslo(), pouzivatel.getId());
+            jdbcTemplate.update(pouzivatel_update, pouzivatel.getMeno(), pouzivatel.getPozicia(), pouzivatel.getPocet_odrobenych_hodin(), pouzivatel.getVyplata());
         }
 
     }
 
     @Override
-    public boolean deletePouzivatela(Pouzivatel pouzivatel) {
-        String pouzivatel_delete = "DELETE FROM pouzivatel WHERE id = " + pouzivatel.getId();
+    public boolean deletePouzivatela(Long id) {
+        String pouzivatel_delete = "DELETE FROM pouzivatel WHERE id = " + id;
         int zmazanych = jdbcTemplate.update(pouzivatel_delete);
         return zmazanych == 1;
     }
@@ -56,17 +55,17 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
     }
 
     @Override
-    public List<Pouzivatel> findByPozicia(String pozicia) {
-        String pouzivatel_findByPozicia = "SELECT * FROM pouzivatel "
-                + "WHERE pozicia = " + pozicia;
-        return jdbcTemplate.query(pouzivatel_findByPozicia, new PouzivatelRowMapper());
-    }
-
-    @Override
     public List<Pouzivatel> findByMeno(String meno) {
         String pouzivatel_findByMeno = "SELECT * FROM pouzivatel "
                 + "WHERE meno = " + meno;
         return jdbcTemplate.query(pouzivatel_findByMeno, new PouzivatelRowMapper());
+    }
+
+    @Override
+    public List<Pouzivatel> findByPozicia(String pozicia) {
+        String pouzivatel_findByPozicia = "SELECT * FROM pouzivatel "
+                + "WHERE pozicia = " + pozicia;
+        return jdbcTemplate.query(pouzivatel_findByPozicia, new PouzivatelRowMapper());
     }
 
     private class PouzivatelRowMapper implements RowMapper<Pouzivatel> {
@@ -79,18 +78,9 @@ public class MySqlPouzivatelDao implements PouzivatelDao {
             p.setPozicia(rs.getString(3));
             p.setPocet_odrobenych_hodin(rs.getInt(4));
             p.setVyplata(rs.getInt(5));
-            p.setHeslo(rs.getString(6));
             return p;
         }
 
     }
 
-    public static void main(String[] args) {
-        MySqlPouzivatelDao ms = (MySqlPouzivatelDao) CampingDaoFactory.INSTANCE.getMySqlPouzivatelDao();
-        List<Pouzivatel> pouzivatelia = ms.getAll();
-        for (Pouzivatel pouzivatel : pouzivatelia) {
-            System.out.println(pouzivatel);
-        }
-
-    }
 }

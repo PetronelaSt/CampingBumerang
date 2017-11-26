@@ -7,7 +7,6 @@ public class Pouzivatel {
     private String meno;
     private int pocet_odrobenych_hodin;
     private int vyplata;
-    private String heslo;
 
     public int getPocet_odrobenych_hodin() {
         return pocet_odrobenych_hodin;
@@ -49,17 +48,9 @@ public class Pouzivatel {
         this.meno = meno;
     }
 
-    public String getHeslo() {
-        return heslo;
-    }
-
-    public void setHeslo(String heslo) {
-        this.heslo = heslo;
-    }
-
     @Override
     public String toString() {
-        return "Pouzivatel - id: " + id + ". Pozicia: " + pozicia + ". Meno: " + meno + ". Pocet odrobenych hodin: " + pocet_odrobenych_hodin + ". Vyplata: " + vyplata + ". Heslo: " + heslo;
+        return "Pouzivatel - id: " + id + ". Pozicia: " + pozicia + ". Meno: " + meno + ". Pocet odrobenych hodin: " + pocet_odrobenych_hodin + ". Vyplata: " + vyplata;
     }
 
 }

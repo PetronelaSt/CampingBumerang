@@ -11,7 +11,7 @@ public interface PouzivatelDao {
 
     public void updatePouzivatela(Pouzivatel pouzivatel);
 
-    public boolean deletePouzivatela(Pouzivatel pouzivatel);
+    public boolean deletePouzivatela(Long id);
 
     public List<Pouzivatel> findById(Long id);
 

@@ -29,7 +29,7 @@ public class ZamestnanecSceneController {
     private Color x2;
 
     @FXML
-    private Button pridajPlatbuButton;
+    private Button spravujFinancieButton;
 
     @FXML
     private Button prepniUzivatelaButton;
@@ -262,6 +262,10 @@ public class ZamestnanecSceneController {
             ObjednavkaEditSceneController controller = new ObjednavkaEditSceneController();
             showObjednavkaEditWindow(controller);
         });
+        spravujFinancieButton.setOnAction(eh -> {
+            FinancieEditSceneController controller = new FinancieEditSceneController();
+            showFinancieEditWindow(controller);
+        });
         prepniUzivatelaButton.setOnAction(eh -> {
             MainSceneController controller = new MainSceneController();
             showMainWindow(controller);
@@ -280,6 +284,25 @@ public class ZamestnanecSceneController {
             Stage stage = new Stage();
             stage.setScene(scene);
             stage.setTitle("Správa objednávok");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException iOException) {
+            iOException.printStackTrace();
+        }
+    }
+
+    private void showFinancieEditWindow(FinancieEditSceneController controller) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("FinancieEditScene.fxml"));
+            loader.setController(controller);
+
+            Parent parentPane = loader.load();
+            Scene scene = new Scene(parentPane);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Správa financií");
             stage.initModality(Modality.APPLICATION_MODAL);
             stage.showAndWait();
         } catch (IOException iOException) {

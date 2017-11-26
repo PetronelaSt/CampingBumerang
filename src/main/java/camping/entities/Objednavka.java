@@ -1,7 +1,6 @@
 package camping.entities;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 public class Objednavka {
 
@@ -12,6 +11,7 @@ public class Objednavka {
     private LocalDate datumPrichodu;
     private LocalDate datumOdchodu;
     private Long pocetDni;
+    private boolean platba;
 
     public Long getId() {
         return id;
@@ -76,7 +76,6 @@ public class Objednavka {
     public void setPlatba(boolean platba) {
         this.platba = platba;
     }
-    private boolean platba;
 
     @Override
     public String toString() {

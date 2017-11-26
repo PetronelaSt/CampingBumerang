@@ -3,11 +3,8 @@ package camping.dao;
 import camping.entities.Objednavka;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.List;
-import javax.swing.JOptionPane;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
@@ -52,8 +49,8 @@ public class MySqlObjednavkaDao implements ObjednavkaDao {
     }
 
     @Override
-    public boolean deleteObjednavku(Objednavka objednavka) {
-        String objednavka_delete = "DELETE FROM objednavky WHERE id = " + objednavka.getId();
+    public boolean deleteObjednavku(Long id) {
+        String objednavka_delete = "DELETE FROM objednavky WHERE id = " + id;
         int zmazanych = jdbcTemplate.update(objednavka_delete);
         return zmazanych == 1;
 
@@ -131,7 +128,7 @@ public class MySqlObjednavkaDao implements ObjednavkaDao {
             o.setPouzivatelId(rs.getLong(3));
             o.setDatumObjednavky((LocalDate) rs.getDate(4).toLocalDate());
             o.setDatumPrichodu((LocalDate) rs.getDate(5).toLocalDate());
-            o.setDatumOdchodu((LocalDate) rs.getDate(4).toLocalDate());
+            o.setDatumOdchodu((LocalDate) rs.getDate(6).toLocalDate());
             o.setPocetDni(rs.getLong(7));
             if (rs.getInt(8) == 1) {
                 o.setPlatba(true);
@@ -143,12 +140,4 @@ public class MySqlObjednavkaDao implements ObjednavkaDao {
 
     }
 
-    public static void main(String[] args) {
-        MySqlObjednavkaDao ms = (MySqlObjednavkaDao) CampingDaoFactory.INSTANCE.getMySqlObjednavkaDao();
-        List<Objednavka> objednavky = ms.getAll();
-        for (Objednavka objednavka : objednavky) {
-            System.out.println(objednavka);
-        }
-
-    }
 }

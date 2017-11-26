@@ -1,12 +1,23 @@
 package camping.design;
 
+import com.sun.javafx.iio.ImageLoader;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class ZakaznikSceneController {
 
@@ -17,16 +28,7 @@ public class ZakaznikSceneController {
     private URL location;
 
     @FXML
-    private Font x1;
-
-    @FXML
-    private Color x2;
-
-    @FXML
-    private Button pridajObjednavkuButton;
-
-    @FXML
-    private Button prepniUzivatelaButton;
+    private AnchorPane zakaznikAnchorPane;
 
     @FXML
     private Button id1Button;
@@ -86,15 +88,6 @@ public class ZakaznikSceneController {
     private Button id9Button;
 
     @FXML
-    private Button id32Button;
-
-    @FXML
-    private Button id31Button;
-
-    @FXML
-    private Button id30Button;
-
-    @FXML
     private Button id28Button;
 
     @FXML
@@ -113,24 +106,6 @@ public class ZakaznikSceneController {
     private Button id23Button;
 
     @FXML
-    private Button id62Button;
-
-    @FXML
-    private Button id55Button;
-
-    @FXML
-    private Button id48Button;
-
-    @FXML
-    private Button id41Button;
-
-    @FXML
-    private Button id36Button;
-
-    @FXML
-    private Button id29Button;
-
-    @FXML
     private Button id22Button;
 
     @FXML
@@ -140,106 +115,13 @@ public class ZakaznikSceneController {
     private Button id20Button;
 
     @FXML
-    private Button id40Button;
+    private Font x1;
 
     @FXML
-    private Button id39Button;
+    private Color x2;
 
     @FXML
-    private Button id64Button;
-
-    @FXML
-    private Button id57Button;
-
-    @FXML
-    private Button id50Button;
-
-    @FXML
-    private Button id43Button;
-
-    @FXML
-    private Button id38Button;
-
-    @FXML
-    private Button id35Button;
-
-    @FXML
-    private Button id34Button;
-
-    @FXML
-    private Button id63Button;
-
-    @FXML
-    private Button id56Button;
-
-    @FXML
-    private Button id49Button;
-
-    @FXML
-    private Button id42Button;
-
-    @FXML
-    private Button id37Button;
-
-    @FXML
-    private Button id33Button;
-
-    @FXML
-    private Button id60Button;
-
-    @FXML
-    private Button id53Button;
-
-    @FXML
-    private Button id52Button;
-
-    @FXML
-    private Button id67Button;
-
-    @FXML
-    private Button id59Button;
-
-    @FXML
-    private Button id66Button;
-
-    @FXML
-    private Button id65Button;
-
-    @FXML
-    private Button id58Button;
-
-    @FXML
-    private Button id51Button;
-
-    @FXML
-    private Button id44Button;
-
-    @FXML
-    private Button id46Button;
-
-    @FXML
-    private Button id45Button;
-
-    @FXML
-    private Button id54Button;
-
-    @FXML
-    private Button id68Button;
-
-    @FXML
-    private Button id61Button;
-
-    @FXML
-    private Button id70Button;
-
-    @FXML
-    private Button id69Button;
-
-    @FXML
-    private Button id47Button;
-
-    @FXML
-    private ListView<?> udajeOPozemkuListView;
+    private Button prepniUzivatelaButton;
 
     @FXML
     private Font x3;
@@ -249,6 +131,504 @@ public class ZakaznikSceneController {
 
     @FXML
     void initialize() {
-        
+        prepniUzivatelaButton.setOnAction(eh -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("MainScene.fxml"));
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                Image logo = new Image("camping\\styles\\logo.png");
+                stage.setScene(scene);
+                stage.setTitle("Camping Bumerang");
+                stage.getIcons().add(logo);
+                prepniUzivatelaButton.getScene().getWindow().hide();
+                stage.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ZakaznikSceneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        });
+
+        id1Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+
+        });
+        id2Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id3Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id4Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id5Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id6Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id7Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id8Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id9Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id10Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id11Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id12Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id13Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id14Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id15Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id16Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id17Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id18Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id19Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id20Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id21Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id22Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id23Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id24Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id25Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id26Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id27Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+        id28Button.setOnAction(eh -> {
+            Stage stage = new Stage();
+
+            Image foto = new Image("camping\\styles\\PozadieMainScene.jpg");
+            ImageView view = new ImageView(foto);
+            StackPane sp = new StackPane();
+            sp.getChildren().add(view);
+
+            Image logo = new Image("camping\\styles\\logo.png");
+            Scene scene = new Scene(sp);
+            stage.setScene(scene);
+            stage.getIcons().add(logo);
+            stage.setMaxHeight(700);
+            stage.setMaxWidth(900);
+            stage.centerOnScreen();
+            stage.show();
+        });
+
     }
 }

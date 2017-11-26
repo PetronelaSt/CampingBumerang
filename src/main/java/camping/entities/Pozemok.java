@@ -1,13 +1,12 @@
 package camping.entities;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Objects;
 
 public class Pozemok {
 
     private Long id;
     private Long cisloPozemku;
-    private String kategoria;
+    private Long kategoria_id;
     private int cena;
     private boolean obsadenost;
 
@@ -27,12 +26,12 @@ public class Pozemok {
         this.cisloPozemku = cisloPozemku;
     }
 
-    public String getKategoria() {
-        return kategoria;
+    public Long getKategoria_id() {
+        return kategoria_id;
     }
 
-    public void setKategoria(String kategoria) {
-        this.kategoria = kategoria;
+    public void setKategoria_id(Long kategoria_id) {
+        this.kategoria_id = kategoria_id;
     }
 
     public int getCena() {
@@ -53,7 +52,7 @@ public class Pozemok {
 
     @Override
     public String toString() {
-        return "Pozemok - id:" + id + ". Cislo Pozemku:" + cisloPozemku + ". Kategoria:" + kategoria + ". Cena:" + cena + ". Obsadenost:" + obsadenost;
+        return "Pozemok - id:" + id + ". Cislo Pozemku:" + cisloPozemku + ". Kategoria:" + kategoria_id + ". Cena:" + cena + ". Obsadenost:" + obsadenost;
     }
 
 }

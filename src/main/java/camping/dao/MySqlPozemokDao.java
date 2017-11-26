@@ -1,5 +1,6 @@
 package camping.dao;
 
+import camping.entities.Kategoria;
 import camping.entities.Pozemok;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,50 +21,47 @@ public class MySqlPozemokDao implements PozemokDao {
     @Override
     public void createPozemok(Pozemok pozemok) {
         if (pozemok.getId() == null) {
-            String pozemok_create = "INSERT INTO pozemky(cislo_pozemku, kategoria, cena, obsadenost) VALUE(?, ?, ?, ?);";
+            String pozemok_create = "INSERT INTO pozemky(cislo_pozemku, kategoria_id, cena, obsadenost) VALUES(?, ?, ?);";
             if (!pozemok.isObsadenost()) {
-                jdbcTemplate.update(pozemok_create, pozemok.getCisloPozemku(), pozemok.getKategoria(), pozemok.getCena(), 0);
+                jdbcTemplate.update(pozemok_create, pozemok.getCisloPozemku(), pozemok.getKategoria_id(), pozemok.getCena(), 0);
             } else {
-                jdbcTemplate.update(pozemok_create, pozemok.getCisloPozemku(), pozemok.getKategoria(), pozemok.getCena(), 1);
+                jdbcTemplate.update(pozemok_create, pozemok.getCisloPozemku(), pozemok.getKategoria_id(), pozemok.getCena(), 1);
             }
         }
     }
 
-    // FUNGUJE (vrati vsetky pozemky)
     @Override
     public List<Pozemok> getAll() {
         String pozemok_getAll = "SELECT * FROM pozemky";
         return jdbcTemplate.query(pozemok_getAll, new PozemokRowMapper());
-
     }
 
     // Update cely pozemok
     @Override
     public void updatePozemok(Pozemok pozemok) {
-        String pozemok_update = "UPDATE pozemky SET cislo_pozemku = ?, kategoria = ?, cena = ?, obsadenost = ? WHERE id = ?";
+        String pozemok_update = "UPDATE pozemky SET cislo_pozemku = ?, cena = ?, kategoria_id = ?, obsadenost = ? WHERE id = ?";
         if (pozemok.getId() == null) {
             createPozemok(pozemok);
         } else {
             if (pozemok.isObsadenost()) {
-                jdbcTemplate.update(pozemok_update, pozemok.getCisloPozemku(), pozemok.getKategoria(), pozemok.getCena(), 1);
+                jdbcTemplate.update(pozemok_update, pozemok.getCisloPozemku(), pozemok.getCena(), pozemok.getKategoria_id(), 1);
             } else {
-                jdbcTemplate.update(pozemok_update, pozemok.getCisloPozemku(), pozemok.getKategoria(), pozemok.getCena(), 0);
+                jdbcTemplate.update(pozemok_update, pozemok.getCisloPozemku(), pozemok.getCena(), pozemok.getKategoria_id(), 0);
             }
         }
 
     }
 
     @Override
-    public boolean deletePozemokByCisloPozemku(long cisloPozemku) {
-        String pozemok_delete = "DELETE FROM pozemky WHERE cislo_pozemku = " + cisloPozemku;
+    public boolean deletePozemokById(long id) {
+        String pozemok_delete = "DELETE FROM pozemky WHERE id = " + id;
         int zmazanych = jdbcTemplate.update(pozemok_delete);
         return zmazanych == 1;
     }
 
-    // VYMYSLIET DACO LEPSIE
     @Override
-    public boolean deletePozemokById(long id) {
-        String pozemok_delete = "DELETE FROM pozemky WHERE id = " + id;
+    public boolean deletePozemokByCisloPozemku(long cisloPozemku) {
+        String pozemok_delete = "DELETE FROM pozemky WHERE cislo_pozemku = " + cisloPozemku;
         int zmazanych = jdbcTemplate.update(pozemok_delete);
         return zmazanych == 1;
     }
@@ -83,10 +81,10 @@ public class MySqlPozemokDao implements PozemokDao {
 
     }
 
+    // PREROBIT, NOVA TRIEDA KATEGORIА
     @Override
     public List<Pozemok> findByKategoria(String kategoria) {
-        String pozemok_findByKategoria = "SELECT * FROM pozemky "
-                + "WHERE kategoria = " + "'" + kategoria + "'";
+        String pozemok_findByKategoria = "SELECT * from pozemky where kategoria_nazov = " + "'" + kategoria + "'";
         return jdbcTemplate.query(pozemok_findByKategoria, new PozemokRowMapper());
 
     }
@@ -119,24 +117,17 @@ public class MySqlPozemokDao implements PozemokDao {
             Pozemok p = new Pozemok();
             p.setId(rs.getLong(1));
             p.setCisloPozemku(rs.getLong(2));
-            p.setKategoria(rs.getString(3));
+            p.setKategoria_id(rs.getLong(3));
             p.setCena(rs.getInt(4));
             if (rs.getInt(5) == 1) {
                 p.setObsadenost(true);
             } else {
                 p.setObsadenost(false);
             }
+
             return p;
         }
 
-    }
-
-    public static void main(String[] args) {
-        MySqlPozemokDao ms = (MySqlPozemokDao) CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
-        List<Pozemok> p = ms.findByKategoria("II");
-        for (Pozemok pozemok : p) {
-            System.out.println(pozemok);
-        }
     }
 
 }

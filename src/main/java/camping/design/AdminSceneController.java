@@ -29,10 +29,7 @@ public class AdminSceneController {
     private Color x2;
 
     @FXML
-    private Button pridajPlatbuButton;
-
-    @FXML
-    private Button zrusPlatbuButton;
+    private Button spravujFinancieButton;
 
     @FXML
     private Button spravujObjednavkyButton;
@@ -275,6 +272,10 @@ public class AdminSceneController {
             ObjednavkaEditSceneController controller = new ObjednavkaEditSceneController();
             showObjednavkaEditWindow(controller);
         });
+        spravujFinancieButton.setOnAction(eh -> {
+            FinancieEditSceneController controller = new FinancieEditSceneController();
+            showFinancieEditWindow(controller);
+        });
         prepniUzivatelaButton.setOnAction(eh -> {
             MainSceneController controller = new MainSceneController();
             showMainWindow(controller);
@@ -285,6 +286,7 @@ public class AdminSceneController {
         try {
             FXMLLoader loader = new FXMLLoader(
                     getClass().getResource("ZamestnanecEditScene.fxml"));
+            System.out.println(getClass().getResource("ZamestnanecEditScene.fxml"));
             loader.setController(controller);
 
             Parent parentPane = loader.load();
@@ -318,6 +320,26 @@ public class AdminSceneController {
             iOException.printStackTrace();
         }
     }
+
+    private void showFinancieEditWindow(FinancieEditSceneController controller) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("FinancieEditScene.fxml"));
+            loader.setController(controller);
+
+            Parent parentPane = loader.load();
+            Scene scene = new Scene(parentPane);
+
+            Stage stage = new Stage();
+            stage.setScene(scene);
+            stage.setTitle("Správa financií");
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.showAndWait();
+        } catch (IOException iOException) {
+            iOException.printStackTrace();
+        }
+    }
+
     private void showMainWindow(MainSceneController controller) {
         try {
             FXMLLoader loader = new FXMLLoader(
