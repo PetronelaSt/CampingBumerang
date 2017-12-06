@@ -1,32 +1,32 @@
 package camping.design;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+import camping.entities.Pozemok;
+import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Modality;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class AdminSceneController {
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
-    private Font x1;
-
-    @FXML
-    private Color x2;
+    private AnchorPane mainAnchorPane;
 
     @FXML
     private Button spravujFinancieButton;
@@ -41,321 +41,144 @@ public class AdminSceneController {
     private Button prepniUzivatelaButton;
 
     @FXML
-    private Button pridajZamestnancaButton;
+    private Button pridajPozemokButton;
 
     @FXML
-    private Button id1Button;
+    private Button vyhladajPozemokButton;
 
     @FXML
-    private Button id8Button;
+    private ListView<Pozemok> pozemkyListView;
+//    @FXML
+//    private TableView<PozemokFxModel> pozemkyTableView;
+//
+//    @FXML
+//    private TableColumn<PozemokFxModel, Long> cisloPozemkuColumn;
+//
+//    @FXML
+//    private TableColumn<PozemokFxModel, Kategoria> kategoriaPozemkuColumn;
+//
+//    @FXML
+//    private TableColumn<PozemokFxModel, Integer> cenaPozemkuColumn;
+//
+//    @FXML
+//    private TableColumn<PozemokFxModel, Boolean> obsadenostPozemkuColumn;
 
     @FXML
-    private Button id7Button;
+    private HBox pozemkyHBox;
 
-    @FXML
-    private Button id6Button;
-
-    @FXML
-    private Button id5Button;
-
-    @FXML
-    private Button id4Button;
-
-    @FXML
-    private Button id3Button;
-
-    @FXML
-    private Button id2Button;
-
-    @FXML
-    private Button id19Button;
-
-    @FXML
-    private Button id18Button;
-
-    @FXML
-    private Button id17Button;
-
-    @FXML
-    private Button id16Button;
-
-    @FXML
-    private Button id15Button;
-
-    @FXML
-    private Button id14Button;
-
-    @FXML
-    private Button id13Button;
-
-    @FXML
-    private Button id12Button;
-
-    @FXML
-    private Button id11Button;
-
-    @FXML
-    private Button id10Button;
-
-    @FXML
-    private Button id9Button;
-
-    @FXML
-    private Button id32Button;
-
-    @FXML
-    private Button id31Button;
-
-    @FXML
-    private Button id30Button;
-
-    @FXML
-    private Button id28Button;
-
-    @FXML
-    private Button id27Button;
-
-    @FXML
-    private Button id26Button;
-
-    @FXML
-    private Button id25Button;
-
-    @FXML
-    private Button id24Button;
-
-    @FXML
-    private Button id23Button;
-
-    @FXML
-    private Button id62Button;
-
-    @FXML
-    private Button id55Button;
-
-    @FXML
-    private Button id48Button;
-
-    @FXML
-    private Button id41Button;
-
-    @FXML
-    private Button id36Button;
-
-    @FXML
-    private Button id29Button;
-
-    @FXML
-    private Button id22Button;
-
-    @FXML
-    private Button id21Button;
-
-    @FXML
-    private Button id20Button;
-
-    @FXML
-    private Button id40Button;
-
-    @FXML
-    private Button id39Button;
-
-    @FXML
-    private Button id64Button;
-
-    @FXML
-    private Button id57Button;
-
-    @FXML
-    private Button id50Button;
-
-    @FXML
-    private Button id43Button;
-
-    @FXML
-    private Button id38Button;
-
-    @FXML
-    private Button id35Button;
-
-    @FXML
-    private Button id34Button;
-
-    @FXML
-    private Button id63Button;
-
-    @FXML
-    private Button id56Button;
-
-    @FXML
-    private Button id49Button;
-
-    @FXML
-    private Button id42Button;
-
-    @FXML
-    private Button id37Button;
-
-    @FXML
-    private Button id33Button;
-
-    @FXML
-    private Button id60Button;
-
-    @FXML
-    private Button id53Button;
-
-    @FXML
-    private Button id52Button;
-
-    @FXML
-    private Button id67Button;
-
-    @FXML
-    private Button id59Button;
-
-    @FXML
-    private Button id66Button;
-
-    @FXML
-    private Button id65Button;
-
-    @FXML
-    private Button id58Button;
-
-    @FXML
-    private Button id51Button;
-
-    @FXML
-    private Button id44Button;
-
-    @FXML
-    private Button id46Button;
+    private PozemokFxModel pozemokModel = new PozemokFxModel();
+    private ObservableList<Pozemok> vsetkyPozemky = pozemokModel.getPozemky();
 
-    @FXML
-    private Button id45Button;
-
-    @FXML
-    private Button id54Button;
-
-    @FXML
-    private Button id68Button;
-
-    @FXML
-    private Button id61Button;
-
-    @FXML
-    private Button id70Button;
+    public AdminSceneController() {
 
-    @FXML
-    private Button id69Button;
-
-    @FXML
-    private Button id47Button;
-
-    @FXML
-    private ListView<?> udajeOPozemkuListView;
-
-    @FXML
-    private Font x3;
-
-    @FXML
-    private Color x4;
+    }
 
     @FXML
     void initialize() {
-        pridajZamestnancaButton.setOnAction(eh -> {
-            ZamestnanecEditSceneController controller = new ZamestnanecEditSceneController();
-            showZamestnanecEditWindow(controller);
-        });
-        spravujObjednavkyButton.setOnAction(eh -> {
-            ObjednavkaEditSceneController controller = new ObjednavkaEditSceneController();
-            showObjednavkaEditWindow(controller);
-        });
-        spravujFinancieButton.setOnAction(eh -> {
-            FinancieEditSceneController controller = new FinancieEditSceneController();
-            showFinancieEditWindow(controller);
-        });
+
         prepniUzivatelaButton.setOnAction(eh -> {
-            MainSceneController controller = new MainSceneController();
-            showMainWindow(controller);
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("MainScene.fxml"));
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                Image logo = new Image("camping\\styles\\logo.png");
+                stage.setScene(scene);
+                stage.setTitle("Camping Bumerang");
+                stage.getIcons().add(logo);
+                prepniUzivatelaButton.getScene().getWindow().hide();
+                stage.show();
+
+            } catch (IOException ex) {
+                Logger.getLogger(ZakaznikSceneController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         });
-    }
+        if (pozemokModel.getPozemky().size() > 0) {
+            pozemkyListView.setItems(pozemokModel.getPozemky());
+            pozemkyListView.setEditable(true);
 
-    private void showZamestnanecEditWindow(ZamestnanecEditSceneController controller) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("ZamestnanecEditScene.fxml"));
-            System.out.println(getClass().getResource("ZamestnanecEditScene.fxml"));
-            loader.setController(controller);
-
-            Parent parentPane = loader.load();
-            Scene scene = new Scene(parentPane);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Správa zamestnancov");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
         }
+
+        vyhladajPozemokButton.setOnAction(eh -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("VyhladatPozemokPodlaKriteriaScene.fxml"));
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                Image logo = new Image("camping\\styles\\logo.png");
+                stage.setScene(scene);
+                stage.setTitle("Camping Bumerang");
+                stage.getIcons().add(logo);
+                stage.show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+        pridajPozemokButton.setOnAction(eh -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                        getClass().getResource("PridatPozemokScene.fxml"));
+                Parent parentPane = loader.load();
+                Scene scene = new Scene(parentPane);
+
+                Stage stage = new Stage();
+                Image logo = new Image("camping\\styles\\logo.png");
+                stage.setScene(scene);
+                stage.setTitle("Camping Bumerang");
+                stage.getIcons().add(logo);
+                stage.show();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        // dynamicke pridavanie Button-ov
+        pozemkyHBox.setSpacing(10);
+        vytvorPozemok(vsetkyPozemky);
+
     }
 
-    private void showObjednavkaEditWindow(ObjednavkaEditSceneController controller) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("ObjednavkaEditScene.fxml"));
-            loader.setController(controller);
+    private void vytvorPozemok(List<Pozemok> pozemok) {
+        if (pozemok.size() > 0) {
+            for (Pozemok pozemok1 : pozemok) {
+                String cislo = Objects.toString(pozemok1.getCisloPozemku(), null);
+                Button button = new Button(cislo);
+                button.setMinWidth(30);
+                button.setMinHeight(10);
+                button.setId("id" + pozemok1.getCisloPozemku() + "Button");
+                if (pozemok1.isObsadenost()) {
+                    button.setStyle("-fx-background-color: #04B404;");
+                } else {
+                    button.setStyle("-fx-background-color: #FF0000;");
+                }
+                button.setOnAction(eh -> {
+                    try {
+                        BorderPane root = new BorderPane();
+                        Scene scene = new Scene(root, 400, 210);
 
-            Parent parentPane = loader.load();
-            Scene scene = new Scene(parentPane);
+                        DatePickerSkin datePickerSkin = new DatePickerSkin(new DatePicker(LocalDate.now()));
+                        Node popupContent = datePickerSkin.getPopupContent();
 
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Správa objednávok");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
-        }
-    }
+                        root.setCenter(popupContent);
 
-    private void showFinancieEditWindow(FinancieEditSceneController controller) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("FinancieEditScene.fxml"));
-            loader.setController(controller);
+                        Stage stage = new Stage();
+                        Image logo = new Image("camping\\styles\\logo.png");
+                        stage.setTitle("Camping Bumerang");
+                        stage.getIcons().add(logo);
 
-            Parent parentPane = loader.load();
-            Scene scene = new Scene(parentPane);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Správa financií");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
-        }
-    }
-
-    private void showMainWindow(MainSceneController controller) {
-        try {
-            FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("MainScene.fxml"));
-            loader.setController(controller);
-
-            Parent parentPane = loader.load();
-            Scene scene = new Scene(parentPane);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Camping Bumerang: prihlásenie");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
+                        stage.setScene(scene);
+                        stage.show();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                });
+                pozemkyHBox.getChildren().add(button);
+            }
         }
     }
 }

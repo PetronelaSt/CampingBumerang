@@ -1,7 +1,9 @@
 package camping.design;
 
 import camping.dao.HesloDao;
+import camping.entities.Heslo;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,9 +15,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.Window;
+import javax.swing.JOptionPane;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 public class MainSceneController {
 
@@ -53,20 +55,93 @@ public class MainSceneController {
     private Label typUseraLabel;
 
     private String uzivatel;
-    private HesloDao hesla = camping.dao.CampingDaoFactory.INSTANCE.getMySqlHesloDao();
-    
+    private HesloFxModel hesloModel;
+    private boolean administrator = false;
+    private boolean zamestnanec = false;
+
     @FXML
     void initialize() {
 
         bossButton.setOnAction(eh -> {
             typUseraLabel.setText("Zadajte heslo administratora");
-            System.out.println(hesla.getHeslo("Administrator"));
-
+            if (zamestnanec) {
+                zamestnanec = false;
+            }
+            administrator = true;
+            hesloPouzivatelaPasswordField.setText("");
         });
-        
-        
+
         userButton.setOnAction(eh -> {
             typUseraLabel.setText("Zadajte heslo zamestnanca");
+            if (administrator) {
+                administrator = false;
+            }
+            zamestnanec = true;
+            hesloPouzivatelaPasswordField.setText("");
+
+        });
+        OKButton.setDefaultButton(true);
+        OKButton.setOnAction(eh -> {
+            if (!administrator && !zamestnanec) {
+                typUseraLabel.setText("Zvolte typ pouzivatela!");
+            }
+           
+            
+            String hash = "";
+            String sol = "";
+            if (administrator) {
+                hesloModel = new HesloFxModel("Administrator");
+                hash = hesloModel.getHeslo();
+                sol = hesloModel.getSol();
+                String heslo = hesloPouzivatelaPasswordField.getText();
+                String hash2 = BCrypt.hashpw(heslo, sol);
+                if (hash.equals(hash2)) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("AdminScene.fxml"));
+                        Parent parentPane = loader.load();
+                        Scene scene = new Scene(parentPane);
+
+                        Stage stage = new Stage();
+                        Image logo = new Image("camping\\styles\\logo.png");
+                        stage.setScene(scene);
+                        stage.setTitle("Camping Bumerang");
+                        stage.getIcons().add(logo);
+                        customerButton.getScene().getWindow().hide();
+                        stage.show();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nespravne heslo!");
+                }
+            } else if (zamestnanec) {
+                hesloModel = new HesloFxModel("Zamestnanec");
+                hash = hesloModel.getHeslo();
+                sol = hesloModel.getSol();
+                String heslo = hesloPouzivatelaPasswordField.getText();
+                String hash2 = BCrypt.hashpw(heslo, sol);
+                if (hash.equals(hash2)) {
+                    try {
+                        FXMLLoader loader = new FXMLLoader(
+                                getClass().getResource("ZamestnanecScene.fxml"));
+                        Parent parentPane = loader.load();
+                        Scene scene = new Scene(parentPane);
+
+                        Stage stage = new Stage();
+                        Image logo = new Image("camping\\styles\\logo.png");
+                        stage.setScene(scene);
+                        stage.setTitle("Camping Bumerang");
+                        stage.getIcons().add(logo);
+                        customerButton.getScene().getWindow().hide();
+                        stage.show();
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Nespravne heslo!");
+                }
+            }
 
         });
 

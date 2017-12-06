@@ -1,6 +1,9 @@
 package camping.design;
 
+import camping.dao.CampingDaoFactory;
+import camping.dao.PozemokDao;
 import camping.entities.Pozemok;
+import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
@@ -9,19 +12,30 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 public class PozemokFxModel {
 
-    //privatne premenne podla entity, pricom id uzivatel nezadava-preto tu nie je
-    //pre cislo pozemku možeme dať "1" (ale muselo by byť typu final v entite?)
-    //-nemusí byť, ale môže byť ako predvolené pre začiatočne pridávanie pozemkov
     private LongProperty cisloPozemku = new SimpleLongProperty();
     private LongProperty kategoria_id = new SimpleLongProperty();
     private IntegerProperty cena = new SimpleIntegerProperty();
     private BooleanProperty obsadenost = new SimpleBooleanProperty();
+    private ObservableList<Pozemok> pozemky = FXCollections.observableArrayList();
+//    private ObservableList<PozemokFxModel> pozemkyTab = FXCollections.observableArrayList();
 
-    //zatial praqzdny konštruktor pre fx model
     public PozemokFxModel() {
+        readAll();
+    }
+
+    private void readAll() {
+        PozemokDao pozemokDao = CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
+        List<Pozemok> listPozemkov = pozemokDao.getAll();
+        for (Pozemok pozemok : listPozemkov) {
+            pozemky.add(pozemok);
+
+        }
+//        nacitajPozemkyTab();
     }
 
     //get pre pozemok
@@ -33,6 +47,19 @@ public class PozemokFxModel {
         pozemok.setObsadenost(getObsadenost());
         return pozemok;
     }
+
+//    public void nacitajPozemkyTab() {
+//        pozemkyTab.clear();
+//        for (Pozemok pozemok : pozemky) {
+//            PozemokFxModel model = new PozemokFxModel();
+//            model.setCisloPozemku(pozemok.getCisloPozemku());
+//            model.setKategoria_id(pozemok.getKategoria_id());
+//            model.setCena(pozemok.getCena());
+//            model.setObsadenost(pozemok.isObsadenost());
+//            pozemkyTab.add(model);
+//        }
+//        setPozemkyTab(pozemkyTab);
+//    }
 
     //getery, setery a property
     public LongProperty cisloPozemkuProperty() {
@@ -83,4 +110,18 @@ public class PozemokFxModel {
         this.obsadenost.set(obsadenost);
     }
 
+    public ObservableList<Pozemok> getPozemky() {
+        return pozemky;
+    }
+
+    public void setPozemky(ObservableList<Pozemok> pozemky) {
+        this.pozemky = pozemky;
+    }
+
+//    public ObservableList<PozemokFxModel> getPozemkyTab() {
+//        return pozemkyTab;
+//    }
+//    public void setPozemkyTab(ObservableList<PozemokFxModel> pozemky) {
+//        this.pozemkyTab = pozemkyTab;
+//    }
 }

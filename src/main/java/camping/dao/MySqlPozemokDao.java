@@ -21,7 +21,7 @@ public class MySqlPozemokDao implements PozemokDao {
     @Override
     public void createPozemok(Pozemok pozemok) {
         if (pozemok.getId() == null) {
-            String pozemok_create = "INSERT INTO pozemky(cislo_pozemku, kategoria_id, cena, obsadenost) VALUES(?, ?, ?);";
+            String pozemok_create = "INSERT INTO pozemky(cislo_pozemku, kategoria_id, cena, obsadenost) VALUES(?, ?, ?, ?);";
             if (!pozemok.isObsadenost()) {
                 jdbcTemplate.update(pozemok_create, pozemok.getCisloPozemku(), pozemok.getKategoria_id(), pozemok.getCena(), 0);
             } else {

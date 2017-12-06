@@ -15,6 +15,7 @@ public class PouzivatelFxModel {
     private IntegerProperty vyplata = new SimpleIntegerProperty();
 
     public PouzivatelFxModel() {
+   
     }
 
     public Pouzivatel gePouzivatel() {

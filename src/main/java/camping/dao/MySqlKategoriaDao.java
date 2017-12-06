@@ -19,7 +19,7 @@ public class MySqlKategoriaDao implements KategoriaDao {
     @Override
     public void createKategoria(Kategoria kategoria) {
         if (kategoria.getId() == null) {
-            String kategoria_create = "INSERT INTO kategoria (nazov) VALUE(?)";
+            String kategoria_create = "INSERT INTO kategoria(nazov) VALUE(?)";
             jdbcTemplate.update(kategoria_create, kategoria.getNazov());
         }
     }

@@ -5,6 +5,7 @@ public class Heslo {
     private Long id;
     private String uzivatel;
     private String heslo;
+    private String sol;
 
     public Long getId() {
         return id;
@@ -30,9 +31,12 @@ public class Heslo {
         this.heslo = heslo;
     }
 
-    @Override
-    public String toString() {
-        return heslo;
+    public String getSol() {
+        return sol;
+    }
+
+    public void setSol(String sol) {
+        this.sol = sol;
     }
 
 }
