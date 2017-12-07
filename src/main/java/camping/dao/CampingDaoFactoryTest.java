@@ -37,4 +37,7 @@ public enum CampingDaoFactoryTest {
         return new MySqlPouzivatelDao(getJDBCTemplate());
     }
 
+    public HesloDao getMySqlHesloDao() {
+        return new MySqlHesloDao(getJDBCTemplate());
+    }
 }

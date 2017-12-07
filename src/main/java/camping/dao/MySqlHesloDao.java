@@ -36,7 +36,6 @@ public class MySqlHesloDao implements HesloDao {
         jdbcTemplate.update(heslo_update, heslo.getUzivatel(), hash, sol, heslo.getId());
 
     }
-//TODOOOOOOOOOOOOO
 
     @Override
     public List<Heslo> getAll() {

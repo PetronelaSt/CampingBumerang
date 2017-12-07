@@ -2,7 +2,6 @@ package camping.design;
 
 import camping.dao.CampingDaoFactory;
 import camping.dao.PozemokDao;
-import camping.entities.Kategoria;
 import camping.entities.Pozemok;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,7 +46,7 @@ public class PridatPozemokSceneController {
         pridatPozemokButton.setOnAction(eh -> {
             Pozemok pozemok = new Pozemok();
             pozemok.setCisloPozemku(Long.parseLong(cisloPozemkuTextField.getText()));
-            pozemok.setKategoria_id((long) kategoriaPozemkuChoiceBox.getSelectionModel().getSelectedIndex());
+            pozemok.setKategoria_id((long) kategoriaPozemkuChoiceBox.getSelectionModel().getSelectedIndex()+1);
             pozemok.setCena(Integer.parseInt(cenaPozemkuTextField.getText()));
             if (obsadenostPozemkuCheckBox.selectedProperty().getValue()) {
                 pozemok.setObsadenost(true);
