@@ -13,7 +13,7 @@ public class CampingBumerangApp extends Application {
     public void start(Stage stage) {
         try {
             FXMLLoader loader = new FXMLLoader(
-                    getClass().getResource("MainScene.fxml"));
+                    getClass().getResource("ZamestnanecScene.fxml"));
             Parent parentPane = loader.load();
             Scene scene = new Scene(parentPane);
 
