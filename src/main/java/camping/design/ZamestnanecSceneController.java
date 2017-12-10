@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Modality;
@@ -90,7 +91,7 @@ public class ZamestnanecSceneController {
             stage.setScene(scene);
             stage.setTitle("Camping Bumerang: prihlásenie");
             stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
+            stage.show();
         } catch (IOException iOException) {
             iOException.printStackTrace();
         }

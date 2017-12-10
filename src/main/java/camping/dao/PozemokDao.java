@@ -1,28 +1,29 @@
 package camping.dao;
 
+import camping.design.PozemokFxModel;
 import camping.entities.Pozemok;
 import java.util.List;
 
 public interface PozemokDao {
 
-    public void createPozemok(Pozemok pozemky);
+    public void createPozemok(PozemokFxModel pozemky);
 
-    public List<Pozemok> getAll();
+    public List<PozemokFxModel> getAll();
 
-    public void updatePozemok(Pozemok pozemok);
+    public void updatePozemok(PozemokFxModel pozemok);
 
     public boolean deletePozemokByCisloPozemku(long cisloPozemku);
 
     public boolean deletePozemokById(long id);
 
-    public List<Pozemok> findById(long id);
+    public PozemokFxModel findById(long id);
 
-    public List<Pozemok> findByCisloPozemku(long cisloPozemku);
+    public PozemokFxModel findByCisloPozemku(long cisloPozemku);
 
-    public List<Pozemok> findByKategoria(String kategoria);
+    public List<PozemokFxModel> findByKategoria(String kategoria);
 
-    public List<Pozemok> findByCena(int cena);
+    public List<PozemokFxModel> findByCena(int cena);
 
-    public List<Pozemok> findByObsadenost(boolean obsadenost);
+    public List<PozemokFxModel> findByObsadenost(boolean obsadenost);
 
 }

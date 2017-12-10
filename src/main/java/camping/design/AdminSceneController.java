@@ -1,5 +1,9 @@
 package camping.design;
 
+import camping.dao.CampingDaoFactory;
+import camping.dao.KategoriaDao;
+import camping.dao.PozemokDao;
+import camping.entities.Kategoria;
 import camping.entities.Pozemok;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
@@ -8,20 +12,29 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.stage.Stage;
+import javax.swing.JOptionPane;
 
 public class AdminSceneController {
 
@@ -47,111 +60,175 @@ public class AdminSceneController {
     private Button vyhladajPozemokButton;
 
     @FXML
-    private ListView<Pozemok> pozemkyListView;
-//    @FXML
-//    private TableView<PozemokFxModel> pozemkyTableView;
-//
-//    @FXML
-//    private TableColumn<PozemokFxModel, Long> cisloPozemkuColumn;
-//
-//    @FXML
-//    private TableColumn<PozemokFxModel, Kategoria> kategoriaPozemkuColumn;
-//
-//    @FXML
-//    private TableColumn<PozemokFxModel, Integer> cenaPozemkuColumn;
-//
-//    @FXML
-//    private TableColumn<PozemokFxModel, Boolean> obsadenostPozemkuColumn;
+    private TableView<PozemokFxModel> pozemkyTableView;
 
     @FXML
-    private HBox pozemkyHBox;
+    private TableColumn<PozemokFxModel, Long> cisloPozemkuColumn;
+
+    @FXML
+    private TableColumn<PozemokFxModel, Long> kategoriaPozemkuColumn;
+
+    @FXML
+    private TableColumn<PozemokFxModel, Integer> cenaPozemkuColumn;
+
+    @FXML
+    private TableColumn<PozemokFxModel, Boolean> obsadenostPozemkuColumn;
+
+    @FXML
+    private FlowPane pozemkyFlowPane;
+
+    @FXML
+    private TextField hladatPozemokTextField;
+
+    @FXML
+    private Button hladatPozemokButton;
+
+    @FXML
+    private Button vymazatPozemokButton;
 
     private PozemokFxModel pozemokModel = new PozemokFxModel();
-    private ObservableList<Pozemok> vsetkyPozemky = pozemokModel.getPozemky();
+    private ObservableList<PozemokFxModel> pozemky = FXCollections.observableArrayList(pozemokModel.getPozemky());
 
-    public AdminSceneController() {
+    @FXML
+    void prepnutUzivatelaAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("MainScene.fxml"));
+            Parent parentPane = loader.load();
+            Scene scene = new Scene(parentPane);
+
+            Stage stage = new Stage();
+            Image logo = new Image("camping\\styles\\logo.png");
+            stage.setScene(scene);
+            stage.setTitle("Camping Bumerang");
+            stage.getIcons().add(logo);
+            prepniUzivatelaButton.getScene().getWindow().hide();
+            stage.show();
+
+        } catch (IOException ex) {
+            Logger.getLogger(ZakaznikSceneController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    void pridatPozemokAction(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("PridatPozemokScene.fxml"));
+            Parent parentPane = loader.load();
+            Scene scene = new Scene(parentPane);
+
+            Stage stage = new Stage();
+            Image logo = new Image("camping\\styles\\logo.png");
+            stage.setScene(scene);
+            stage.setTitle("Camping Bumerang");
+            stage.getIcons().add(logo);
+            stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void vyhladajPodlaObjednavky(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("VyhladatPozemokPodlaKriteriaScene.fxml"));
+            Parent parentPane = loader.load();
+            Scene scene = new Scene(parentPane);
+
+            Stage stage = new Stage();
+            Image logo = new Image("camping\\styles\\logo.png");
+            stage.setScene(scene);
+            stage.setTitle("Camping Bumerang");
+            stage.getIcons().add(logo);
+            stage.show();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    @FXML
+    void vyhladajPozemok(ActionEvent event) {
+        try {
+            PozemokDao pozemokDao = CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
+            PozemokFxModel pozemok = pozemokDao.findByCisloPozemku(Long.parseLong(hladatPozemokTextField.getText()));
+            System.out.println(pozemok.getCisloPozemku());
+            ObservableList<PozemokFxModel> najdenePozemky = FXCollections.observableArrayList();
+            pozemky.add(pozemok);
+            if (pozemok.getCisloPozemku() == 0) {
+                JOptionPane.showMessageDialog(null, "Pozemok z číslom " + Long.parseLong(hladatPozemokTextField.getText()) + " neexistuje");
+                pozemkyTableView.setItems(pozemky);
+            } else {
+                pozemkyTableView.setItems(najdenePozemky);
+            }
+        } catch (Exception e) {
+            System.out.println("Error occurred while getting pozemky information from DB.\n" + e);
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    void vymazPozemok(ActionEvent event) {
+        try {
+            int index = pozemkyTableView.getSelectionModel().getSelectedIndex();
+            Long vymazat = cisloPozemkuColumn.getCellData(index);
+            PozemokDao pozemokDao = CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
+            pozemokDao.deletePozemokByCisloPozemku(vymazat);
+        } catch (Exception e) {
+            System.out.println("Error occurred while getting pozemky information from DB.\n" + e);
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void hladajPozemky(ActionEvent actionEvent) {
+        try {
+            PozemokDao pozemokDao = CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
+            ObservableList<PozemokFxModel> pozemky = FXCollections.observableArrayList(pozemokDao.getAll());
+            populateEmployees(pozemky);
+        } catch (Exception e) {
+            System.out.println("Error occurred while getting pozemky information from DB.\n" + e);
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void populateEmployees(ObservableList<PozemokFxModel> pozemky) throws ClassNotFoundException {
+        if (pozemky.size() > 0) {
+            pozemkyTableView.setItems(pozemky);
+        } else {
+            System.out.println("V liste nie su pozemky");
+        }
 
     }
 
     @FXML
     void initialize() {
+        cisloPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().cisloPozemkuProperty().asObject());
+        kategoriaPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().kategoriaIdProperty().asObject());
+        KategoriaDao kategoriaDao = CampingDaoFactory.INSTANCE.getMySqlKategoriaDao();
 
-        prepniUzivatelaButton.setOnAction(eh -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("MainScene.fxml"));
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-
-                Stage stage = new Stage();
-                Image logo = new Image("camping\\styles\\logo.png");
-                stage.setScene(scene);
-                stage.setTitle("Camping Bumerang");
-                stage.getIcons().add(logo);
-                prepniUzivatelaButton.getScene().getWindow().hide();
-                stage.show();
-
-            } catch (IOException ex) {
-                Logger.getLogger(ZakaznikSceneController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        });
-        if (pozemokModel.getPozemky().size() > 0) {
-            pozemkyListView.setItems(pozemokModel.getPozemky());
-            pozemkyListView.setEditable(true);
-
-        }
-
-        vyhladajPozemokButton.setOnAction(eh -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("VyhladatPozemokPodlaKriteriaScene.fxml"));
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-
-                Stage stage = new Stage();
-                Image logo = new Image("camping\\styles\\logo.png");
-                stage.setScene(scene);
-                stage.setTitle("Camping Bumerang");
-                stage.getIcons().add(logo);
-                stage.show();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
-        pridajPozemokButton.setOnAction(eh -> {
-            try {
-                FXMLLoader loader = new FXMLLoader(
-                        getClass().getResource("PridatPozemokScene.fxml"));
-                Parent parentPane = loader.load();
-                Scene scene = new Scene(parentPane);
-
-                Stage stage = new Stage();
-                Image logo = new Image("camping\\styles\\logo.png");
-                stage.setScene(scene);
-                stage.setTitle("Camping Bumerang");
-                stage.getIcons().add(logo);
-                stage.show();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        });
+        cenaPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().cenaProperty().asObject());
+        obsadenostPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().obsadenostProperty());
+        pozemkyTableView.setItems(pozemky);
 
         // dynamicke pridavanie Button-ov
-        pozemkyHBox.setSpacing(10);
-        vytvorPozemok(vsetkyPozemky);
+        pozemkyFlowPane.setVgap(8);
+        pozemkyFlowPane.setHgap(4);
+        vytvorPozemok(pozemky);
 
     }
 
-    private void vytvorPozemok(List<Pozemok> pozemok) {
+    private void vytvorPozemok(List<PozemokFxModel> pozemok) {
         if (pozemok.size() > 0) {
-            for (Pozemok pozemok1 : pozemok) {
+            for (PozemokFxModel pozemok1 : pozemok) {
                 String cislo = Objects.toString(pozemok1.getCisloPozemku(), null);
                 Button button = new Button(cislo);
                 button.setMinWidth(30);
                 button.setMinHeight(10);
                 button.setId("id" + pozemok1.getCisloPozemku() + "Button");
-                if (pozemok1.isObsadenost()) {
+                if (pozemok1.getObsadenost()) {
                     button.setStyle("-fx-background-color: #04B404;");
                 } else {
                     button.setStyle("-fx-background-color: #FF0000;");
@@ -177,7 +254,7 @@ public class AdminSceneController {
                         e.printStackTrace();
                     }
                 });
-                pozemkyHBox.getChildren().add(button);
+                pozemkyFlowPane.getChildren().add(button);
             }
         }
     }

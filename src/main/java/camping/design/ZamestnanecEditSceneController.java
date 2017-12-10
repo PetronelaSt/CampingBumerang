@@ -1,5 +1,6 @@
 package camping.design;
 
+import camping.entities.Pouzivatel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
@@ -33,7 +34,7 @@ public class ZamestnanecEditSceneController {
     private Label hesloZamestnancaLabel;
 
     @FXML
-    private ListView<?> zoznamZamestnancovListView;
+    private ListView<Pouzivatel> zoznamZamestnancovListView;
 
     @FXML
     private Button OdstranVybratehoButton;

@@ -1,9 +1,6 @@
-package camping.design;
+package camping.model;
 
-import camping.dao.CampingDaoFactory;
-import camping.dao.PozemokDao;
 import camping.entities.Pozemok;
-import java.util.List;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.LongProperty;
@@ -12,25 +9,19 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 public class PozemokFxModel {
 
-    private LongProperty cisloPozemku;
-    private LongProperty kategoriaId;
-    private IntegerProperty cena;
-    private BooleanProperty obsadenost;
-    private ObservableList<PozemokFxModel> pozemky;
-//    private ObservableList<PozemokFxModel> pozemkyTab = FXCollections.observableArrayList();
+    //privatne premenne podla entity, pricom id uzivatel nezadava-preto tu nie je
+    //pre cislo pozemku možeme dať "1" (ale muselo by byť typu final v entite?)
+    //-nemusí byť, ale môže byť ako predvolené pre začiatočne pridávanie pozemkov
+    private LongProperty cisloPozemku = new SimpleLongProperty();
+    private LongProperty kategoria_id = new SimpleLongProperty();
+    private IntegerProperty cena = new SimpleIntegerProperty();
+    private BooleanProperty obsadenost = new SimpleBooleanProperty();
 
+    //zatial praqzdny konštruktor pre fx model
     public PozemokFxModel() {
-        this.cisloPozemku = new SimpleLongProperty();
-        this.kategoriaId = new SimpleLongProperty();
-        this.cena = new SimpleIntegerProperty();
-        this.obsadenost = new SimpleBooleanProperty();
-        this.pozemky = FXCollections.observableArrayList();
-
     }
 
     //get pre pozemok
@@ -57,15 +48,15 @@ public class PozemokFxModel {
     }
 
     public LongProperty kategoriaIdProperty() {
-        return kategoriaId;
+        return kategoria_id;
     }
 
     public Long getKategoriaId() {
-        return kategoriaId.get();
+        return kategoria_id.get();
     }
 
-    public void setKategoriaId(Long kategoriaId) {
-        this.kategoriaId.set(kategoriaId);
+    public void setKategoria_id(Long kategoria_id) {
+        this.kategoria_id.set(kategoria_id);
     }
 
     public IntegerProperty cenaProperty() {
@@ -90,25 +81,6 @@ public class PozemokFxModel {
 
     public void setObsadenost(Boolean obsadenost) {
         this.obsadenost.set(obsadenost);
-    }
-
-    public ObservableList<PozemokFxModel> getPozemky() {
-        readAll();
-        return pozemky;
-
-    }
-
-    public void setPozemky(ObservableList<PozemokFxModel> pozemky) {
-        this.pozemky = pozemky;
-    }
-
-    private void readAll() {
-        PozemokDao pozemokDao = CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
-        List<PozemokFxModel> listPozemkov = pozemokDao.getAll();
-        for (PozemokFxModel pozemok : listPozemkov) {
-            pozemky.add(pozemok);
-
-        }
     }
 
 }

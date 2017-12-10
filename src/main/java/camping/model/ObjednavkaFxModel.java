@@ -1,4 +1,4 @@
-package camping.design;
+package camping.model;
 
 import camping.entities.Objednavka;
 import java.time.LocalDate;
