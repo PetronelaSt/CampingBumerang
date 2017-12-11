@@ -7,8 +7,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="547.0" xmlns="http://javafx.com/javafx/8.0.141" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camping.design.PridatPozemokSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="92.0" prefWidth="547.0" style="-fx-background-color: #c1c0e8;" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="camping.design.PridatPozemokSceneController">
    <children>
       <Label fx:id="cisloPozemkuLabel" layoutX="14.0" layoutY="15.0" text="Číslo pozemku:" />
       <TextField fx:id="cisloPozemkuTextField" layoutX="102.0" layoutY="11.0" prefHeight="25.0" prefWidth="43.0" />

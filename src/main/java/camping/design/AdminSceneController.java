@@ -126,6 +126,8 @@ public class AdminSceneController {
             stage.setScene(scene);
             stage.setTitle("Camping Bumerang");
             stage.getIcons().add(logo);
+            //malo by zabezpečiť aby sa okno nedalo zväčšovať
+            stage.setResizable(false);
             stage.show();
             stage.setOnHidden(eh -> {
                 pridajPozemokButton.getScene().getWindow().hide();
@@ -148,6 +150,7 @@ public class AdminSceneController {
             stage.setScene(scene);
             stage.setTitle("Camping Bumerang");
             stage.getIcons().add(logo);
+            stage.setResizable(false);
             stage.show();
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -263,6 +266,8 @@ public class AdminSceneController {
                         stage.getIcons().add(logo);
 
                         stage.setScene(scene);
+                        //Podľa toho či chceš aby aj toto nebolo zväčšované
+                        //stage.setResizable(false);
                         stage.show();
                     } catch (Exception e) {
                         e.printStackTrace();
