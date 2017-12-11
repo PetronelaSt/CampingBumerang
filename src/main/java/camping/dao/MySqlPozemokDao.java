@@ -1,5 +1,6 @@
 package camping.dao;
 
+import camping.design.KategoriaFxModel;
 import camping.design.PozemokFxModel;
 import camping.entities.Kategoria;
 import camping.entities.Pozemok;
@@ -26,7 +27,6 @@ public class MySqlPozemokDao implements PozemokDao {
         } else {
             jdbcTemplate.update(pozemok_create, pozemok.getCisloPozemku(), pozemok.getKategoriaId(), pozemok.getCena(), 1);
         }
-
     }
 
     @Override
@@ -37,7 +37,8 @@ public class MySqlPozemokDao implements PozemokDao {
 
     // Update cely pozemok
     @Override
-    public void updatePozemok(PozemokFxModel pozemok) {
+    public void updatePozemok(PozemokFxModel pozemok
+    ) {
         String pozemok_update = "UPDATE pozemky SET  cena = ?, kategoria_id = ?, obsadenost = ? WHERE cislo_pozemku = ?";
         if (pozemok.getCisloPozemku() == null) {
             createPozemok(pozemok);
@@ -52,21 +53,24 @@ public class MySqlPozemokDao implements PozemokDao {
     }
 
     @Override
-    public boolean deletePozemokById(long id) {
+    public boolean deletePozemokById(long id
+    ) {
         String pozemok_delete = "DELETE FROM pozemky WHERE id = " + id;
         int zmazanych = jdbcTemplate.update(pozemok_delete);
         return zmazanych == 1;
     }
 
     @Override
-    public boolean deletePozemokByCisloPozemku(long cisloPozemku) {
+    public boolean deletePozemokByCisloPozemku(long cisloPozemku
+    ) {
         String pozemok_delete = "DELETE FROM pozemky WHERE cislo_pozemku = " + cisloPozemku;
         int zmazanych = jdbcTemplate.update(pozemok_delete);
         return zmazanych == 1;
     }
 
     @Override
-    public PozemokFxModel findById(long id) {
+    public PozemokFxModel findById(long id
+    ) {
         String pozemok_findById = "SELECT * FROM pozemky "
                 + "WHERE id = " + id;
         return jdbcTemplate.query(pozemok_findById, (rs) -> {
@@ -88,7 +92,8 @@ public class MySqlPozemokDao implements PozemokDao {
     }
 
     @Override
-    public PozemokFxModel findByCisloPozemku(long cisloPozemku) {
+    public PozemokFxModel findByCisloPozemku(long cisloPozemku
+    ) {
         String pozemok_findByCisloPozemku = "SELECT * FROM pozemky "
                 + "WHERE cislo_pozemku = " + cisloPozemku;
         return jdbcTemplate.query(pozemok_findByCisloPozemku, (rs) -> {
@@ -111,21 +116,24 @@ public class MySqlPozemokDao implements PozemokDao {
 
     // PREROBIT, NOVA TRIEDA KATEGORIА
     @Override
-    public List<PozemokFxModel> findByKategoria(String kategoria) {
+    public List<PozemokFxModel> findByKategoria(String kategoria
+    ) {
         String pozemok_findByKategoria = "SELECT * from pozemky where kategoria_nazov = " + "'" + kategoria + "'";
         return jdbcTemplate.query(pozemok_findByKategoria, new PozemokRowMapper());
 
     }
 
     @Override
-    public List<PozemokFxModel> findByCena(int cena) {
+    public List<PozemokFxModel> findByCena(int cena
+    ) {
         String pozemok_findByCena = "SELECT * FROM pozemky "
                 + "WHERE cena = " + cena;
         return jdbcTemplate.query(pozemok_findByCena, new PozemokRowMapper());
     }
 
     @Override
-    public List<PozemokFxModel> findByObsadenost(boolean obsadenost) {
+    public List<PozemokFxModel> findByObsadenost(boolean obsadenost
+    ) {
         String pozemok_findByObsadenost = "";
         if (obsadenost == true) {
             pozemok_findByObsadenost = "SELECT * FROM pozemky "
@@ -135,6 +143,17 @@ public class MySqlPozemokDao implements PozemokDao {
                     + "WHERE obsadenost = " + 0;
         }
         return jdbcTemplate.query(pozemok_findByObsadenost, new PozemokRowMapper());
+
+    }
+
+    @Override
+    public List<KategoriaFxModel> findAllKategoria() {
+        String findall_kategoria = "Select p.kategoria_id, k.nazov from pozemky p, kategoria k where p.kategoria_id = k.id;";
+        return jdbcTemplate.query(findall_kategoria, (ResultSet rs, int i) -> {
+            KategoriaFxModel k = new KategoriaFxModel();
+            k.setNazov(rs.getString(2));
+            return k;
+        });
 
     }
 

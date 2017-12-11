@@ -1,5 +1,6 @@
 package camping.design;
 
+import camping.dao.CampingDaoFactory;
 import camping.dao.HesloDao;
 import camping.entities.Heslo;
 import java.net.URL;
@@ -85,12 +86,13 @@ public class MainSceneController {
             if (!administrator && !zamestnanec) {
                 typUseraLabel.setText("Zvolte typ pouzivatela!");
             }
-           
-            
+
             String hash = "";
             String sol = "";
             if (administrator) {
-                hesloModel = new HesloFxModel("Administrator");
+                HesloDao hesloDao = CampingDaoFactory.INSTANCE.getMySqlHesloDao();
+                hesloModel = hesloDao.findByUzivatel("Administrator");
+
                 hash = hesloModel.getHeslo();
                 sol = hesloModel.getSol();
                 String heslo = hesloPouzivatelaPasswordField.getText();
@@ -116,7 +118,8 @@ public class MainSceneController {
                     JOptionPane.showMessageDialog(null, "Nespravne heslo!");
                 }
             } else if (zamestnanec) {
-                hesloModel = new HesloFxModel("Zamestnanec");
+                HesloDao hesloDao = CampingDaoFactory.INSTANCE.getMySqlHesloDao();
+                hesloModel = hesloDao.findByUzivatel("Zamestnanec");
                 hash = hesloModel.getHeslo();
                 sol = hesloModel.getSol();
                 String heslo = hesloPouzivatelaPasswordField.getText();

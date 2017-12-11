@@ -56,26 +56,24 @@ public class ObjednavkaEditSceneController {
         // ak bude chciet odstranit objednavku, najskor mu vyhodi okno 
         // s potvrdenim prav, až po overeni hesla vykona akciu odstranenia
         odstranOjednavkuButton.setOnAction((event) -> {
-            OvereniePravSceneController controller = new OvereniePravSceneController();
-            showOvereniePravWindow(controller);
-        });
+           });
     }
     
-    private void showOvereniePravWindow(OvereniePravSceneController controller) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("OvereniePravScene.fxml"));
-            loader.setController(controller);
-            
-            Parent parentPane = loader.load();
-            Scene scene = new Scene(parentPane);
-
-            Stage stage = new Stage();
-            stage.setScene(scene);
-            stage.setTitle("Overenie práv");
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.showAndWait();
-        } catch (IOException iOException) {
-            iOException.printStackTrace();
-        }
-    }
+//    private void showOvereniePravWindow(OvereniePravSceneController controller) {
+//        try {
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("OvereniePravScene.fxml"));
+//            loader.setController(controller);
+//            
+//            Parent parentPane = loader.load();
+//            Scene scene = new Scene(parentPane);
+//
+//            Stage stage = new Stage();
+//            stage.setScene(scene);
+//            stage.setTitle("Overenie práv");
+//            stage.initModality(Modality.APPLICATION_MODAL);
+//            stage.showAndWait();
+//        } catch (IOException iOException) {
+//            iOException.printStackTrace();
+//        }
+//    }
 }

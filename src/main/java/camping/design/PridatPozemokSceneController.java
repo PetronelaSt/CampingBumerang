@@ -2,14 +2,16 @@ package camping.design;
 
 import camping.dao.CampingDaoFactory;
 import camping.dao.PozemokDao;
-import camping.entities.Pozemok;
 import java.net.URL;
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -53,9 +55,11 @@ public class PridatPozemokSceneController {
     private Button pridatPozemokButton;
     private KategoriaFxModel kategoriaModel = new KategoriaFxModel();
     private ObservableList<String> kategorie = kategoriaModel.getNazvy();
+    private PozemokFxModel pozemokModel = new PozemokFxModel();
 
     @FXML
     void initialize() {
+        
         kategoriaPozemkuChoiceBox.setItems(kategorie);
         pridatPozemokButton.setDefaultButton(true);
         pridatPozemokButton.setOnAction(eh -> {
@@ -70,23 +74,51 @@ public class PridatPozemokSceneController {
             }
             PozemokDao pozemokDao = CampingDaoFactory.INSTANCE.getMySqlPozemokDao();
             List<PozemokFxModel> pozemky = pozemokDao.getAll();
-            for (PozemokFxModel pozemokFxModel : pozemky) {
-                if (pozemokFxModel.getCisloPozemku() == Long.parseLong(cisloPozemkuTextField.getText())) {
-                    Alert alert = new Alert(Alert.AlertType.WARNING, "Pozemok z takym cislom uz existuje, chcete jeho aktualizovat?", ButtonType.OK, ButtonType.NO);
-                    Optional<ButtonType> result = alert.showAndWait();
-                    if (result.isPresent() && result.get() == ButtonType.OK) {
-                        pozemokDao.updatePozemok(pozemok);
-                        break;
-                    } else {
-                        pridatPozemokButton.getScene().getWindow().hide();
-                        break;
-                    }
+            ObservableList<PozemokFxModel> poz = FXCollections.observableArrayList(pozemky);
+            try {
+                pozemokDao.createPozemok(pozemok);
+            } catch (Exception e) {
+                Alert alert = new Alert(Alert.AlertType.WARNING, "Pozemok z takym cislom uz existuje, chcete jeho aktualizovat?", ButtonType.OK, ButtonType.NO);
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    pozemokDao.updatePozemok(pozemok);
                 } else {
-                    pozemokDao.createPozemok(pozemok);
-                    break;
+                    pridatPozemokButton.getScene().getWindow().hide();
                 }
             }
-// DOROBIT
+//            for (PozemokFxModel pozemokFxModel : poz) {
+//                if (pozemokFxModel.getCisloPozemku() == Long.parseLong(cisloPozemkuTextField.getText())) {
+//                    Alert alert = new Alert(Alert.AlertType.WARNING, "Pozemok z takym cislom uz existuje, chcete jeho aktualizovat?", ButtonType.OK, ButtonType.NO);
+//                    Optional<ButtonType> result = alert.showAndWait();
+//                    if (result.isPresent() && result.get() == ButtonType.OK) {
+//                        pozemokDao.updatePozemok(pozemok);
+//                        break;
+//                    } else {
+//                        pridatPozemokButton.getScene().getWindow().hide();
+//                        break;
+//                    }
+//                } else {
+//                    pozemokDao.createPozemok(pozemok);
+//                    break;
+//                }
+//            }
+
+//            for (PozemokFxModel pozemokFxModel : poz) {
+//                if (pozemokFxModel.getCisloPozemku() == Long.parseLong(cisloPozemkuTextField.getText())) {
+//                    Alert alert = new Alert(Alert.AlertType.WARNING, "Pozemok z takym cislom uz existuje, chcete jeho aktualizovat?", ButtonType.OK, ButtonType.NO);
+//                    Optional<ButtonType> result = alert.showAndWait();
+//                    if (result.isPresent() && result.get() == ButtonType.OK) {
+//                        pozemokDao.updatePozemok(pozemok);
+//                        break;
+//                    } else {
+//                        pridatPozemokButton.getScene().getWindow().hide();
+//                        break;
+//                    }
+//                } else {
+//                    pozemokDao.createPozemok(pozemok);
+//                    break;
+//                }
+//            }
             pridatPozemokButton.getScene().getWindow().hide();
             try {
                 FXMLLoader loader = new FXMLLoader(
@@ -103,7 +135,6 @@ public class PridatPozemokSceneController {
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
-//            stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST));
         });
     }
 }

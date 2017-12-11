@@ -5,9 +5,12 @@ import camping.dao.KategoriaDao;
 import camping.dao.PozemokDao;
 import camping.entities.Kategoria;
 import camping.entities.Pozemok;
+import com.mysql.cj.api.xdevapi.Collection;
 import com.sun.javafx.scene.control.skin.DatePickerSkin;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.logging.Level;
@@ -124,6 +127,9 @@ public class AdminSceneController {
             stage.setTitle("Camping Bumerang");
             stage.getIcons().add(logo);
             stage.show();
+            stage.setOnHidden(eh -> {
+                pridajPozemokButton.getScene().getWindow().hide();
+            });
         } catch (Exception ex) {
             ex.printStackTrace();
         }
@@ -155,10 +161,14 @@ public class AdminSceneController {
             PozemokFxModel pozemok = pozemokDao.findByCisloPozemku(Long.parseLong(hladatPozemokTextField.getText()));
             System.out.println(pozemok.getCisloPozemku());
             ObservableList<PozemokFxModel> najdenePozemky = FXCollections.observableArrayList();
-            pozemky.add(pozemok);
-            if (pozemok.getCisloPozemku() == 0) {
-                JOptionPane.showMessageDialog(null, "Pozemok z číslom " + Long.parseLong(hladatPozemokTextField.getText()) + " neexistuje");
+            System.out.println();
+            if (pozemok.getCisloPozemku() != 0) {
+                najdenePozemky.add(pozemok);
+            }
+
+            if (najdenePozemky.size() < 1) {
                 pozemkyTableView.setItems(pozemky);
+                JOptionPane.showMessageDialog(null, "Pozemok z číslom " + Long.parseLong(hladatPozemokTextField.getText()) + " neexistuje");
             } else {
                 pozemkyTableView.setItems(najdenePozemky);
             }
@@ -207,8 +217,6 @@ public class AdminSceneController {
     void initialize() {
         cisloPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().cisloPozemkuProperty().asObject());
         kategoriaPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().kategoriaIdProperty().asObject());
-        KategoriaDao kategoriaDao = CampingDaoFactory.INSTANCE.getMySqlKategoriaDao();
-
         cenaPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().cenaProperty().asObject());
         obsadenostPozemkuColumn.setCellValueFactory(cellData -> cellData.getValue().obsadenostProperty());
         pozemkyTableView.setItems(pozemky);
@@ -222,6 +230,12 @@ public class AdminSceneController {
 
     private void vytvorPozemok(List<PozemokFxModel> pozemok) {
         if (pozemok.size() > 0) {
+            Collections.sort(pozemok, new Comparator<PozemokFxModel>() {
+                @Override
+                public int compare(PozemokFxModel lp, PozemokFxModel rp) {
+                    return (int) (lp.getCisloPozemku() - rp.getCisloPozemku());
+                }
+            });
             for (PozemokFxModel pozemok1 : pozemok) {
                 String cislo = Objects.toString(pozemok1.getCisloPozemku(), null);
                 Button button = new Button(cislo);

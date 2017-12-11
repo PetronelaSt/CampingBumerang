@@ -25,7 +25,7 @@ public class PozemokFxModel {
 //    private ObservableList<PozemokFxModel> pozemkyTab = FXCollections.observableArrayList();
 
     public PozemokFxModel() {
-        this.cisloPozemku = new SimpleLongProperty();
+        this.cisloPozemku = new SimpleLongProperty(0L);
         this.kategoriaId = new SimpleLongProperty();
         this.cena = new SimpleIntegerProperty();
         this.obsadenost = new SimpleBooleanProperty();

@@ -8,15 +8,14 @@ import javafx.beans.property.StringProperty;
 
 public class HesloFxModel {
 
-    private StringProperty uzivatel = new SimpleStringProperty();
-    private StringProperty heslo = new SimpleStringProperty();
-    private StringProperty sol = new SimpleStringProperty();
+    private StringProperty uzivatel;
+    private StringProperty heslo;
+    private StringProperty sol;
 
-    public HesloFxModel(String uzivatel) {
-        HesloDao hesloDao = CampingDaoFactory.INSTANCE.getMySqlHesloDao();
-        List<String> hesla = hesloDao.findByUzivatel(uzivatel);
-        this.setHeslo(hesla.get(0));
-        this.setSol(hesla.get(1));
+    public HesloFxModel() {
+        uzivatel = new SimpleStringProperty();
+        heslo = new SimpleStringProperty();
+        sol = new SimpleStringProperty();
     }
 
     public String getUzivatel() {

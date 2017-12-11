@@ -1,5 +1,6 @@
 package camping.dao;
 
+import camping.design.HesloFxModel;
 import camping.entities.Heslo;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class MySqlHesloDao implements HesloDao {
     }
 
     @Override
-    public void createHeslo(Heslo heslo) {
+    public void createHeslo(HesloFxModel heslo) {
         String heslo_update = "INSERT INTO hesla (uzivatel, heslo, sol) VALUES (?, ?, ?)";
         String sol = BCrypt.gensalt();
         String hash = BCrypt.hashpw(heslo.getHeslo(), sol);
@@ -29,42 +30,36 @@ public class MySqlHesloDao implements HesloDao {
     }
 
     @Override
-    public void updateHeslo(Heslo heslo) {
-        String heslo_update = "UPDATE hesla SET uzivatel = ?, heslo = ?, sol = ? WHERE id = ?";
+    public void updateHeslo(HesloFxModel heslo) {
+        String heslo_update = "UPDATE hesla SET heslo = ?, sol = ? WHERE uzivatel = " + "'" + "?" + "'";
         String sol = BCrypt.gensalt();
         String hash = BCrypt.hashpw(heslo.getHeslo(), sol);
-        jdbcTemplate.update(heslo_update, heslo.getUzivatel(), hash, sol, heslo.getId());
+        jdbcTemplate.update(heslo_update, hash, sol, heslo.getUzivatel());
 
     }
 
     @Override
-    public List<Heslo> getAll() {
+    public List<HesloFxModel> getAll() {
         String heslo_get = "SELECT * FROM hesla";
 
         return jdbcTemplate.query(heslo_get, new HesloRowMapper());
     }
 
     @Override
-    public List<String> findByUzivatel(String uzivatel) {
+    public HesloFxModel findByUzivatel(String uzivatel) {
         String heslo_findByUzivatel = "SELECT * FROM hesla "
                 + "WHERE uzivatel = " + "'" + uzivatel + "'";
-        List<Heslo> hesla = jdbcTemplate.query(heslo_findByUzivatel, new HesloRowMapper());
-        if (hesla.size() < 1) {
-            JOptionPane.showMessageDialog(null, "Nenasiel sa uzivatel");
-        }
-        String heslo = "";
-        String sol = "";
-        for (Heslo heslo1 : hesla) {
-            if (heslo1.getUzivatel().equals(uzivatel)) {
-                heslo = heslo1.getHeslo();
-                sol = heslo1.getSol();
+        List<HesloFxModel> hesla = jdbcTemplate.query(heslo_findByUzivatel, new HesloRowMapper());
+        return jdbcTemplate.query(heslo_findByUzivatel, (rs) -> {
+            HesloFxModel k = new HesloFxModel();
+            while (rs.next()) {
+                k.setUzivatel(rs.getString(2));
+                k.setHeslo(rs.getString(3));
+                k.setSol(rs.getString(4));
             }
-        }
-        List<String> passwords = new ArrayList<>();
-        passwords.add(heslo);
-        passwords.add(sol);
-        
-        return passwords;
+            
+            return k;
+        });
     }
 
     @Override
@@ -74,12 +69,11 @@ public class MySqlHesloDao implements HesloDao {
         return zmazanych == 1;
     }
 
-    private class HesloRowMapper implements RowMapper<Heslo> {
+    private class HesloRowMapper implements RowMapper<HesloFxModel> {
 
         @Override
-        public Heslo mapRow(ResultSet rs, int i) throws SQLException {
-            Heslo h = new Heslo();
-            h.setId(rs.getLong(1));
+        public HesloFxModel mapRow(ResultSet rs, int i) throws SQLException {
+            HesloFxModel h = new HesloFxModel();
             h.setUzivatel(rs.getString(2));
             h.setHeslo(rs.getString(3));
             h.setSol(rs.getString(4));

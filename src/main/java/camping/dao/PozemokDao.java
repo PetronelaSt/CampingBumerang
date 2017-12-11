@@ -1,7 +1,7 @@
 package camping.dao;
 
+import camping.design.KategoriaFxModel;
 import camping.design.PozemokFxModel;
-import camping.entities.Pozemok;
 import java.util.List;
 
 public interface PozemokDao {
@@ -25,5 +25,7 @@ public interface PozemokDao {
     public List<PozemokFxModel> findByCena(int cena);
 
     public List<PozemokFxModel> findByObsadenost(boolean obsadenost);
+
+    public List<KategoriaFxModel> findAllKategoria();
 
 }
